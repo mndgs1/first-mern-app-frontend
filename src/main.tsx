@@ -4,12 +4,17 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { store } from "./app/store.ts";
+import { Provider } from "react-redux";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/*" element={<App />}></Route>
-            </Routes>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/*" element={<App />}></Route>
+                </Routes>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>
 );
