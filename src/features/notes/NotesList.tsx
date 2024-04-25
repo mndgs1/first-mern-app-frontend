@@ -1,34 +1,50 @@
 // @ts-nocheck
 import { useGetNotesQuery } from "./notesApiSlice";
 import Note from "./Note";
+import useAuth from "../../hooks/useAuth";
+import { SyncLoader } from "react-spinners";
+import useTitle from "../../hooks/useTitle";
 
 const NotesList = () => {
+    useTitle("Notes | Dan D. Repairs");
+
     const {
         data: notes,
         isLoading,
         isSuccess,
         isError,
         error,
-    } = useGetNotesQuery(undefined, {
+    } = useGetNotesQuery("notesList", {
         pollingInterval: 15000,
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true,
     });
 
+    const { username, isManager, isAdmin } = useAuth();
+
     let content;
 
-    if (isLoading) content = <p>Loading...</p>;
+    if (isLoading) content = <SyncLoader />;
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>;
     }
 
     if (isSuccess) {
-        const { ids } = notes;
+        const { ids, entities } = notes;
 
-        const tableContent = ids?.length
-            ? ids.map((noteId) => <Note key={noteId} noteId={noteId} />)
-            : null;
+        let filteredIds;
+
+        if (isManager || isAdmin) {
+            filteredIds = [...ids];
+        } else {
+            filteredIds = ids.filter(
+                (noteId) => entities[noteId].username === username
+            );
+        }
+        const tableContent =
+            filteredIds?.length &&
+            filteredIds.map((noteId) => <Note key={noteId} noteId={noteId} />);
 
         content = (
             <table className="table table--notes">

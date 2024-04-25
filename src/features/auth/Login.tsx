@@ -5,13 +5,20 @@ import { useNavigate, Link } from "react-router-dom";
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 import { useDispatch } from "react-redux";
+import { SyncLoader } from "react-spinners";
+
+import usePersist from "../../hooks/usePersist";
+
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
+    useTitle("Login | Dan D. Repairs");
     const userRef = useRef();
     const errRef = useRef();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
+    const [persist, setPersist] = usePersist();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -46,7 +53,7 @@ const Login = () => {
             } else if (error.status === 401) {
                 setErrMsg("Unauthorized");
             } else {
-                setErrMsg(error.data?.message);
+                setErrMsg(error?.data?.message);
             }
             errRef.current.focus();
         }
@@ -54,10 +61,11 @@ const Login = () => {
 
     const handleUserInput = (e) => setUsername(e.target.value);
     const handlePwdInput = (e) => setPassword(e.target.value);
+    const handleToggle = () => setPersist((prev) => !prev);
 
     const errClass = errMsg ? "errmsg" : "offscreen";
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <SyncLoader />;
 
     const content = (
         <section className="public">
@@ -92,6 +100,16 @@ const Login = () => {
                         className="form__input"
                     />
                     <button className="form__submit-button">Sign In</button>
+                    <label htmlFor="persist" className="form__persist">
+                        <input
+                            type="checkbox"
+                            id="persist"
+                            onChange={handleToggle}
+                            checked={persist}
+                            className="form__checkbox"
+                        />
+                        Trust this Device
+                    </label>
                 </form>
             </main>
             <footer>
