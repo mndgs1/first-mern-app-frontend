@@ -1,16 +1,15 @@
-//@ts-nocheck
 import { useState, useEffect } from "react";
 
 const usePersist = () => {
-    const [persist, setPersist] = useState(
-        JSON.parse(localStorage.getItem("persist") || false)
-    );
+    const persistedValue = localStorage.getItem("persist");
+    const initialPersist = persistedValue ? JSON.parse(persistedValue) : false;
+    const [persist, setPersist] = useState<string | boolean>(initialPersist);
 
     useEffect(() => {
         localStorage.setItem("persist", JSON.stringify(persist));
     }, [persist]);
 
-    return [persist, setPersist];
+    return [persist, setPersist] as const;
 };
 
 export default usePersist;

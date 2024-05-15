@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
@@ -8,7 +7,7 @@ import { store } from "./app/store.ts";
 import { Provider } from "react-redux";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
-if (process.env.NODE_ENV === "production") disableReactDevTools();
+if (import.meta.env.VITE_NODE_ENV === "production") disableReactDevTools();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>

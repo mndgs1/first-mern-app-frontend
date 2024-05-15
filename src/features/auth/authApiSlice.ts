@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { apiSlice } from "../../app/api/apiSlice";
 import { logOut, setCredentials } from "./authSlice";
 
@@ -29,6 +28,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 }
             },
         }),
+        // START HERE ON REFRESH
         refresh: builder.mutation({
             query: () => ({
                 url: "/auth/refresh",
@@ -37,7 +37,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
-                    console.log(data);
                     const { accessToken } = data;
                     dispatch(setCredentials({ accessToken }));
                 } catch (error) {

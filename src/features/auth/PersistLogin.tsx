@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { Outlet, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useRefreshMutation } from "./authApiSlice";
@@ -20,7 +19,7 @@ const PersistLogin = () => {
     useEffect(() => {
         if (
             effectRan.current === true ||
-            process.env.NODE_ENV !== "development"
+            import.meta.env.VITE_NODE_ENV !== "development"
         ) {
             // React 18 Strict Mode
 
@@ -39,7 +38,9 @@ const PersistLogin = () => {
             if (!token && persist) verifyRefreshToken();
         }
 
-        return () => (effectRan.current = true);
+        return () => {
+            effectRan.current = true;
+        };
 
         // eslint-disable-next-line
     }, []);

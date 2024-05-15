@@ -1,7 +1,14 @@
-// @ts-nocheck
+//@ts-nocheck
 import { selectCurrentToken } from "../features/auth/authSlice";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 import { useSelector } from "react-redux";
+
+interface DecodedToken extends JwtPayload {
+    UserInfo: {
+        username: string;
+        roles: string[];
+    };
+}
 
 const useAuth = () => {
     const token = useSelector(selectCurrentToken);
