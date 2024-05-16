@@ -9,7 +9,7 @@ const Public = () => {
                 </h1>
             </header>
             <main className="public__main">
-                <p>
+                <p className="">
                     Located in Beautiful Downtown Foo City, Dan D. Repairs
                     provides a trained staff ready to meet your tech repair
                     needs.
