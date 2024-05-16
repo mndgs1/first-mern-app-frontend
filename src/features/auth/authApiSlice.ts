@@ -15,7 +15,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: "/auth/logout",
                 method: "POST",
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
                     console.log(data);
@@ -28,13 +28,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 }
             },
         }),
-        // START HERE ON REFRESH
         refresh: builder.mutation({
             query: () => ({
                 url: "/auth/refresh",
                 method: "GET",
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
                     const { accessToken } = data;

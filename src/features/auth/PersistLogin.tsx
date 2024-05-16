@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Outlet, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useRefreshMutation } from "./authApiSlice";
@@ -27,7 +28,7 @@ const PersistLogin = () => {
                 console.log("verifying refresh token");
                 try {
                     //const response =
-                    await refresh();
+                    await refresh("");
                     //const { accessToken } = response.data
                     setTrueSuccess(true);
                 } catch (err) {
