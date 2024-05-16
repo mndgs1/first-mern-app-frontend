@@ -28,6 +28,11 @@ const Public = () => {
             </main>
             <footer>
                 <Link to="/login">Employee Login</Link>
+                <div>
+                    <p>Test Account</p>
+                    <p>Name: mndgs</p>
+                    <p>Password: mndgs</p>
+                </div>
             </footer>
         </section>
     );
