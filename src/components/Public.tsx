@@ -1,36 +1,68 @@
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
+const Links = [
+    { href: "/", label: "Home" },
+    { href: "/", label: "Home" },
+    { href: "/", label: "Home" },
+    { href: "/", label: "Home" },
+    { href: "/", label: "Home" },
+];
 const Public = () => {
-    const content = (
-        <section className="public">
-            <header>
-                <h1>
-                    Welcome to <span className="nowrap">Dan D. Repairs!</span>
-                </h1>
+    return (
+        <div className="flex flex-col min-h-screen relative">
+            <header className="flex justify-between items-center h-16 md:h-20 px-12 md:px-20 z-10 top-0 bg-red-200">
+                <div className="inline">Logo</div>
+                <nav>
+                    <ul className="flex">
+                        {Links.map((link, index) => (
+                            <li key={`${link.label}${index}`}>
+                                <Link to={link.href}>
+                                    <Button variant={"link"}>
+                                        {link.label}
+                                    </Button>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+                <Link to="/login">
+                    <Button>Login</Button>
+                </Link>
             </header>
-            <main className="public__main">
-                <p className="">
-                    Located in Beautiful Downtown Foo City, Dan D. Repairs
-                    provides a trained staff ready to meet your tech repair
-                    needs.
-                </p>
-                <address className="public__addr">
-                    Dan D. Repairs
-                    <br />
-                    555 Foo Drive
-                    <br />
-                    Foo City, CA 12345
-                    <br />
-                    <a href="tel:+15555555555">(555) 555-5555</a>
-                </address>
-                <br />
-                <p>Owner: Dan Davidson</p>
+            <main className="flex flex-col flex-grow">
+                <section className="flex-grow bg-green-200">
+                    <div>
+                        <h1>Professional Electronics Repairs</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Omnis accusamus natus vitae ad? Recusandae
+                            facere laudantium eos ipsam numquam at. Aut
+                            accusamus, nesciunt aliquam quibusdam ipsam neque
+                            obcaecati quos alias!
+                        </p>
+                        <div>
+                            <Link to={"*"}>
+                                <Button>Get Help</Button>
+                            </Link>
+                            <Link to={"*"}>
+                                <Button variant={"outline"}>Learn More</Button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="" alt="" />
+                    </div>
+                </section>
+                <section className="h-96 bg-gray-200">Second Section</section>
+                <section className="h-96 bg-gray-200">Third Section</section>
+                <section className="h-96 bg-gray-200">Fourth Section</section>
             </main>
-            <footer>
+            <footer className="bg-red-200">
                 <Link to="/login">Employee Login</Link>
+                <Button>Footer Button</Button>
             </footer>
-        </section>
+        </div>
     );
-    return content;
 };
 export default Public;
