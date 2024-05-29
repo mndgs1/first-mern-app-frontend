@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
-type SectionWrapperPops = {
+interface SectionWrapperPops extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactElement;
     className?: string;
-};
+}
 
 const SectionWrapper = ({ children, className }: SectionWrapperPops) => {
     return (

@@ -19,7 +19,7 @@ const icons: Record<IconKey, React.FC<SVGProps<SVGSVGElement>>> = {
 
 const ServicesSection = ({ content }: { content: ServiceSectionInterface }) => {
     return (
-        <SectionWrapper className="bg-green-100">
+        <SectionWrapper className="bg-green-100" id={"services"}>
             <SectionContentWrapper className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                     {content.title}

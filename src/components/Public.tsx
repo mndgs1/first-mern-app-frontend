@@ -8,8 +8,10 @@ import Blog from "./sections/Blog";
 import Header from "./sections/Header";
 
 import { heroContent } from "@/data/pages/homepage/hero";
+import { servicesContent } from "@/data/pages/homepage/services";
 
 import content from "../content.json";
+import { aboutUsContent } from "@/data/pages/homepage/aboutUs";
 
 const Public = () => {
     return (
@@ -17,9 +19,9 @@ const Public = () => {
             <Header content={content.header}></Header>
             <main className="flex flex-col flex-grow">
                 <HeroSplit content={heroContent} />
-                <ServicesSection content={content.homepage.sections.services} />
-                {/* <AboutUs /> */}
-                {/* <Reviews /> */}
+                <ServicesSection content={servicesContent} />
+                <AboutUs content={aboutUsContent} />
+                <Reviews />
                 {/* <Blog /> */}
             </main>
             <footer className="bg-red-200">

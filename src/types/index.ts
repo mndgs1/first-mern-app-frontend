@@ -54,8 +54,27 @@ interface ContactInfo {
 interface HomepageSections {
     hero: HeroSection;
     services: ServicesSection;
+    aboutUs: AboutUsSection;
 }
 
+interface TeamMember {
+    name: string;
+    role: string;
+    description: string;
+    avatar: string;
+}
+
+interface TeamSection {
+    title: string;
+    description: string[];
+    team: TeamMember[];
+}
+
+interface AboutUsSection {
+    title: string;
+    description: string[];
+    teamSection: TeamSection;
+}
 interface HomepageContent {
     sections: HomepageSections;
     testimonials: TestimonialItem[];
@@ -84,4 +103,7 @@ export type {
     ServiceItem,
     HeroSection,
     ServicesSection,
+    TeamMember,
+    AboutUsSection,
+    TeamSection,
 };
