@@ -2,10 +2,14 @@ import React from "react";
 import { Cpu, Code, Shield, Database, Network } from "lucide-react"; // Adjust the import to match your actual icon library
 import { SVGProps } from "react";
 import { Card } from "@/components/ui/card";
+import { ServicesSection as ServiceSectionInterface } from "@/types";
+
+import SectionContentWrapper from "./SectionContentWrapper";
+import SectionWrapper from "./SectionWrapper";
 
 type IconKey = "Cpu" | "Code" | "Shield" | "Database" | "Network";
 
-const icons: Record<string, React.FC<SVGProps<SVGSVGElement>>> = {
+const icons: Record<IconKey, React.FC<SVGProps<SVGSVGElement>>> = {
     Cpu,
     Code,
     Shield,
@@ -13,20 +17,19 @@ const icons: Record<string, React.FC<SVGProps<SVGSVGElement>>> = {
     Network,
 };
 
-const ServicesSection = ({ content }) => {
+const ServicesSection = ({ content }: { content: ServiceSectionInterface }) => {
     return (
-        <section className="section bg-green-100">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center section-container">
+        <SectionWrapper className="bg-green-100">
+            <SectionContentWrapper className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                    Our Services
+                    {content.title}
                 </h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    We offer a wide range of services to keep your PC running
-                    smoothly.
+                    {content.subtitle}
                 </p>
                 <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-                    {services.map((service, index) => {
-                        const IconComponent = icons[service.icon];
+                    {content.servicesItems.map((service, index) => {
+                        const IconComponent = icons[service.icon as IconKey];
                         return (
                             <Card
                                 key={index}
@@ -46,8 +49,8 @@ const ServicesSection = ({ content }) => {
                         );
                     })}
                 </div>
-            </div>
-        </section>
+            </SectionContentWrapper>
+        </SectionWrapper>
     );
 };
 

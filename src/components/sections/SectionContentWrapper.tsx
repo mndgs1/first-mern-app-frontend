@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 type SectionContentWrapperPops = {
-    children: React.ReactElement;
+    children: React.ReactNode;
     className?: string;
 };
 

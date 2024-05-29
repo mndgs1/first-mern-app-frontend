@@ -15,7 +15,11 @@ interface HeroSection {
     backgroundImage: HeroBackgroundImage;
 }
 
-interface ServiceSection {}
+interface ServicesSection {
+    title: string;
+    subtitle: string;
+    servicesItems: ServiceItem[];
+}
 
 interface ServiceItem {
     title: string;
@@ -49,7 +53,7 @@ interface ContactInfo {
 
 interface HomepageSections {
     hero: HeroSection;
-    service: ServiceItem[];
+    services: ServicesSection;
 }
 
 interface HomepageContent {
@@ -79,4 +83,5 @@ export type {
     TestimonialItem,
     ServiceItem,
     HeroSection,
+    ServicesSection,
 };

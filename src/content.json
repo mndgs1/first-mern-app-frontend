@@ -32,10 +32,10 @@
                     "alt": "Computer repair hero image"
                 }
             },
-            "service": {
+            "services": {
                 "title": "Our Services",
                 "subtitle": "We offer a wide range of services to keep your PC running smoothly.",
-                "services": [
+                "servicesItems": [
                     {
                         "title": "Hardware Repair",
                         "description": "We can diagnose and repair any hardware issues with your PC, including motherboards, CPUs, RAM, and more.",
