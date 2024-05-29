@@ -7,6 +7,8 @@ import Reviews from "./sections/Reviews";
 import Blog from "./sections/Blog";
 import Header from "./sections/Header";
 
+import { heroContent } from "@/data/pages/homepage/hero";
+
 import content from "../content.json";
 
 const Public = () => {
@@ -14,7 +16,7 @@ const Public = () => {
         <div className="flex flex-col min-h-screen relative">
             <Header content={content.header}></Header>
             <main className="flex flex-col flex-grow">
-                <HeroSplit content={content.homepage.sections.hero} />
+                <HeroSplit content={heroContent} />
                 <ServicesSection content={content.homepage.sections.services} />
                 {/* <AboutUs /> */}
                 {/* <Reviews /> */}
