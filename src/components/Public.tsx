@@ -1,34 +1,29 @@
-import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import ServicesSection from "./sections/Services";
-import HeroSplit from "./sections/Hero";
+import Hero from "./sections/Hero";
+import Services from "./sections/Services";
+import Footer from "./sections/Footer";
 import AboutUs from "./sections/AboutUs";
-import Reviews from "./sections/Reviews";
-import Blog from "./sections/Blog";
-import Header from "./sections/Header";
+import ContactUs from "./sections/ContactUs";
 
-import { heroContent } from "@/data/pages/homepage/hero";
-import { servicesContent } from "@/data/pages/homepage/services";
+import Testimonials from "./sections/Testimonials";
+import FAQ from "./sections/FAQ";
+import Header from "./Header";
 
-import content from "../content.json";
-import { aboutUsContent } from "@/data/pages/homepage/aboutUs";
+import { navLinks } from "@/data/navLinks";
 
 const Public = () => {
     return (
-        <div className="flex flex-col min-h-screen relative">
-            <Header content={content.header}></Header>
+        <>
+            <Header navLinks={navLinks} />
             <main className="flex flex-col flex-grow">
-                <HeroSplit content={heroContent} />
-                <ServicesSection content={servicesContent} />
-                <AboutUs content={aboutUsContent} />
-                <Reviews />
-                {/* <Blog /> */}
+                <Hero />
+                <AboutUs id="about" />
+                <Services />
+                <Testimonials />
+                <FAQ />
+                <ContactUs id="contact" />
             </main>
-            <footer className="bg-red-200">
-                <Link to="/login">Employee Login</Link>
-                <Button>Footer Button</Button>
-            </footer>
-        </div>
+            <Footer />
+        </>
     );
 };
 export default Public;

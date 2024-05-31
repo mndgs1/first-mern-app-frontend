@@ -5,9 +5,15 @@ interface SectionWrapperPops extends React.HTMLAttributes<HTMLElement> {
     className?: string;
 }
 
-const SectionWrapper = ({ children, className }: SectionWrapperPops) => {
+const SectionWrapper = ({
+    children,
+    className,
+    ...props
+}: SectionWrapperPops) => {
     return (
-        <section className={cn("py-12 md:py-24 lg:py-32 w-full;", className)}>
+        <section
+            className={cn("py-12 md:py-24 lg:py-32 w-full;", className)}
+            {...props}>
             {children}
         </section>
     );

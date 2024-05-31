@@ -1,57 +1,183 @@
-import React from "react";
-import { Cpu, Code, Shield, Database, Network } from "lucide-react"; // Adjust the import to match your actual icon library
-import { SVGProps } from "react";
-import { Card } from "@/components/ui/card";
-import { ServicesSection as ServiceSectionInterface } from "@/types";
-
 import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
-
-type IconKey = "Cpu" | "Code" | "Shield" | "Database" | "Network";
-
-const icons: Record<IconKey, React.FC<SVGProps<SVGSVGElement>>> = {
-    Cpu,
-    Code,
-    Shield,
-    Database,
-    Network,
-};
-
-const ServicesSection = ({ content }: { content: ServiceSectionInterface }) => {
+const Services = () => {
     return (
-        <SectionWrapper className="bg-green-100" id={"services"}>
-            <SectionContentWrapper className="flex flex-col items-center justify-center space-y-4 text-center">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                    {content.title}
-                </h2>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    {content.subtitle}
-                </p>
-                <div className="mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-                    {content.servicesItems.map((service, index) => {
-                        const IconComponent = icons[service.icon as IconKey];
-                        return (
-                            <Card
-                                key={index}
-                                className="rounded bg-white shadow-md transition-all hover:shadow-lg dark:bg-gray-950 p-10">
-                                <div className="flex flex-col items-center gap-4">
-                                    <div className="rounded-full bg-gray-100 p-3 dark:bg-gray-800">
-                                        <IconComponent className="h-6 w-6 text-primary" />
-                                    </div>
-                                    <h3 className="text-lg font-semibold">
-                                        {service.title}
-                                    </h3>
-                                </div>
-                                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                                    {service.description}
-                                </p>
-                            </Card>
-                        );
-                    })}
-                </div>
+        <SectionWrapper className="bg-blue-100">
+            <SectionContentWrapper className="grid sm:grid-cols-2 lg:grid-cols-4 items-center gap-2">
+                <a
+                    className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800"
+                    href="#">
+                    <div className="flex justify-center items-center size-12 bg-blue-600 rounded-xl">
+                        <svg
+                            className="flex-shrink-0 size-6 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <rect width="10" height="14" x="3" y="8" rx="2" />
+                            <path d="M5 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2.4" />
+                            <path d="M8 18h.01" />
+                        </svg>
+                    </div>
+                    <div className="mt-5">
+                        <h3 className="group-hover:text-gray-600 text-lg font-semibold text-gray-800 dark:text-white dark:group-hover:text-gray-400">
+                            Responsive
+                        </h3>
+                        <p className="mt-1 text-gray-600 dark:text-neutral-400">
+                            Responsive, and mobile-first project on the web
+                        </p>
+                        <span className="mt-2 inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 group-hover:underline font-medium">
+                            Learn more
+                            <svg
+                                className="flex-shrink-0 size-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a
+                    className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800"
+                    href="#">
+                    <div className="flex justify-center items-center size-12 bg-blue-600 rounded-xl">
+                        <svg
+                            className="flex-shrink-0 size-6 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <path d="M20 7h-9" />
+                            <path d="M14 17H5" />
+                            <circle cx="17" cy="17" r="3" />
+                            <circle cx="7" cy="7" r="3" />
+                        </svg>
+                    </div>
+                    <div className="mt-5">
+                        <h3 className="group-hover:text-gray-600 text-lg font-semibold text-gray-800 dark:text-white dark:group-hover:text-gray-400">
+                            Customizable
+                        </h3>
+                        <p className="mt-1 text-gray-600 dark:text-neutral-400">
+                            Components are easily customized and extendable
+                        </p>
+                        <span className="mt-2 inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 group-hover:underline font-medium">
+                            Learn more
+                            <svg
+                                className="flex-shrink-0 size-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+                <a
+                    className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800"
+                    href="#">
+                    <div className="flex justify-center items-center size-12 bg-blue-600 rounded-xl">
+                        <svg
+                            className="flex-shrink-0 size-6 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                        </svg>
+                    </div>
+                    <div className="mt-5">
+                        <h3 className="group-hover:text-gray-600 text-lg font-semibold text-gray-800 dark:text-white dark:group-hover:text-gray-400">
+                            Documentation
+                        </h3>
+                        <p className="mt-1 text-gray-600 dark:text-neutral-400">
+                            Every component and plugin is well documented
+                        </p>
+                        <span className="mt-2 inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 group-hover:underline font-medium">
+                            Learn more
+                            <svg
+                                className="flex-shrink-0 size-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+                <a
+                    className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800"
+                    href="#">
+                    <div className="flex justify-center items-center size-12 bg-blue-600 rounded-xl">
+                        <svg
+                            className="flex-shrink-0 size-6 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
+                            <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+                        </svg>
+                    </div>
+                    <div className="mt-5">
+                        <h3 className="group-hover:text-gray-600 text-lg font-semibold text-gray-800 dark:text-white dark:group-hover:text-gray-400">
+                            24/7 Support
+                        </h3>
+                        <p className="mt-1 text-gray-600 dark:text-neutral-400">
+                            Contact us 24 hours a day, 7 days a week
+                        </p>
+                        <span className="mt-2 inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 group-hover:underline font-medium">
+                            Learn more
+                            <svg
+                                className="flex-shrink-0 size-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </span>
+                    </div>
+                </a>
             </SectionContentWrapper>
         </SectionWrapper>
     );
 };
-
-export default ServicesSection;
+export default Services;

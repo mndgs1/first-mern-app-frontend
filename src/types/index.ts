@@ -93,6 +93,10 @@ interface Content {
     homepage: HomepageContent;
 }
 
+interface SectionProps {
+    id: string;
+}
+
 export type {
     Content,
     HeaderContent,
@@ -106,4 +110,5 @@ export type {
     TeamMember,
     AboutUsSection,
     TeamSection,
+    SectionProps,
 };
