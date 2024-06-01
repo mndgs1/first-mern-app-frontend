@@ -140,7 +140,7 @@ const ContactUs = ({ id }: ContactUsProps) => {
                         </div>
                     </div>
 
-                    <div className="p-4 py-6 rounded-lg bg-gray-50 dark:bg-gray-800 md:p-8">
+                    <div className="px-4 pt-6 rounded-lg bg-gray-50 dark:bg-gray-800 md:pt-8">
                         <form>
                             <div className="-mx-2 md:items-center md:flex">
                                 <div className="flex-1 px-2">
