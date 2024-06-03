@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react";
 type ServicesProps = {
     title?: string;
     subtitle?: string;
-    content: IServicesContent[];
+    services: IServicesContent[];
 };
 
 interface IServicesContent {
@@ -19,7 +19,7 @@ interface IServicesContent {
     href: string;
 }
 
-const Services = ({ content, title, subtitle }: ServicesProps) => {
+const Services = ({ content }: { content: ServicesProps }) => {
     const renderIcon = (Icon: React.ElementType) => {
         return <Icon color="white" />;
     };
@@ -27,14 +27,16 @@ const Services = ({ content, title, subtitle }: ServicesProps) => {
     return (
         <SectionWrapper className="bg-blue-100">
             <SectionContentWrapper>
-                {title && <H2 className="text-center">{title}</H2>}
-                {subtitle && (
+                {content.title && (
+                    <H2 className="text-center">{content.title}</H2>
+                )}
+                {content.subtitle && (
                     <P className="text-center" size={"xl"} margin={"subtitle"}>
-                        {subtitle}
+                        {content.subtitle}
                     </P>
                 )}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                    {content.map((service, index) => {
+                    {content.services.map((service, index) => {
                         return (
                             <a className="" href="#" key={`service${index}`}>
                                 <Card className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800 bg-transparent border-none">

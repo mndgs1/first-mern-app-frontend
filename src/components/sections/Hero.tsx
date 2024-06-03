@@ -27,10 +27,17 @@ const Hero = () => {
                         </H1>
                         <div className="flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
                             <a href="#contact">
-                                <Button size={"lg"}>Contact Us</Button>
+                                <Button
+                                    size={"lg"}
+                                    className="w-full md:w-auto">
+                                    Contact Us
+                                </Button>
                             </a>
                             <a href="#services">
-                                <Button variant={"secondary"} size={"lg"}>
+                                <Button
+                                    variant={"secondary"}
+                                    size={"lg"}
+                                    className="w-full md:w-auto">
                                     Services
                                 </Button>
                             </a>
@@ -68,6 +75,12 @@ const Hero = () => {
                                 600+
                             </P>
                             <P size={"lg"}>Customers</P>
+                        </div>
+                        <div className="px-6 md:px-8">
+                            <P variant={"brand"} size={"lg"}>
+                                1000+
+                            </P>
+                            <P size={"lg"}>PC's Repaired</P>
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-4 lg:justify-start">
