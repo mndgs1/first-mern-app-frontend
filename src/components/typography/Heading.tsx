@@ -7,12 +7,14 @@ export interface TypographyProps
 
 H1.displayName = "H1";
 export function H1({ children, className, ...rest }: TypographyProps) {
-    const classes = cva("scroll-m-20 text-4xl font-extrabold tracking-tight");
+    const classes = cva(
+        "scroll-m-20font-extrabold tracking-tight text-foreground text-4xl md:text-6xl"
+    );
 
     return (
-        <h2 className={cn(classes({ className }))} {...rest}>
+        <h1 className={cn(classes({ className }))} {...rest}>
             {children}
-        </h2>
+        </h1>
     );
 }
 
@@ -27,7 +29,7 @@ export function H2({ children, className, ...rest }: TypographyProps) {
 }
 
 export function H3({ children, className, ...rest }: TypographyProps) {
-    const classes = cva("scroll-m-2 font-semibold tracking-tight mb-2");
+    const classes = cva("scroll-m-2 font-semibold text-lg tracking-tight");
 
     return (
         <h3 className={cn(classes({ className }))} {...rest}>

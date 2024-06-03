@@ -9,6 +9,7 @@ import FAQ from "./sections/FAQ";
 import Header from "./Header";
 
 import { navLinks } from "@/data/navLinks";
+import { ServicesContent } from "@/data/pages/homepage/services";
 
 const Public = () => {
     return (
@@ -16,8 +17,8 @@ const Public = () => {
             <Header navLinks={navLinks} />
             <main className="flex flex-col flex-grow">
                 <Hero />
+                <Services content={ServicesContent} />
                 <AboutUs id="about" />
-                <Services />
                 <Testimonials />
                 <FAQ />
                 <ContactUs id="contact" />

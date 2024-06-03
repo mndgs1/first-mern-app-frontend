@@ -2,32 +2,39 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { TypographyProps } from "./Heading";
 
-const pVariants = cva("leading-7 mb-2", {
+const pVariants = cva("leading-7", {
     variants: {
         variant: {
             default: "",
             destructive: "text-destructive",
             success: "text-success",
             muted: "text-muted-foreground",
-            gradient: "hover:bg-accent hover:text-accent-foreground",
+            brand: "text-primary",
         },
         size: {
-            default: "",
             sm: "text-sm",
-            lg: "text-lg lg:text-xl font-medium",
+            md: "",
+            lg: "text-lg font-medium",
+            xl: "text-lg lg:text-xl font-semibold",
+        },
+        margin: {
+            default: "",
+            text: "mb-2",
+            subtitle: "mb-6 lg:mb-10",
         },
     },
     defaultVariants: {
         variant: "default",
-        size: "default",
+        size: "md",
+        margin: "default",
     },
 });
 
 interface PProps extends TypographyProps, VariantProps<typeof pVariants> {}
 
-export function P({ children, className, variant, size }: PProps) {
+export function P({ children, className, variant, size, margin }: PProps) {
     return (
-        <p className={cn(pVariants({ variant, size, className }))}>
+        <p className={cn(pVariants({ variant, size, className, margin }))}>
             {children}
         </p>
     );
