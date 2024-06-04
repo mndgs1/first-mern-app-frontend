@@ -51,6 +51,7 @@ const LoginForm = () => {
     const [login, { isLoading }] = useLoginMutation();
     const errRef = React.useRef();
     const [errMsg, setErrMsg] = React.useState("");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [persist, setPersist] = usePersist();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const LoginForm = () => {
             } else if (error.status === 401) {
                 setErrMsg("Either username or password is incorrect");
             } else {
-                setErrMsg(error?.data?.message);
+                setErrMsg("Can't connect to the database");
             }
             errRef.current.focus();
         }
@@ -93,9 +94,10 @@ const LoginForm = () => {
     return (
         <SectionWrapper>
             <SectionContentWrapper className="max-w-2xl">
-                <Card>
+                <Card className="overflow-hidden">
                     <CardHeader>
                         <H2>Login</H2>
+                        <P variant={"muted"}>lorem ibsum ibsum ibsum</P>
                     </CardHeader>
                     <CardContent>
                         <Form {...form}>
@@ -156,22 +158,28 @@ const LoginForm = () => {
                                         </FormItem>
                                     )}
                                 />
-                                <P variant={"destructive"}>{errMsg}</P>
-                                <Button type="submit">
-                                    {isLoading ? (
-                                        <>
-                                            Logging in <SyncLoader />
-                                        </>
-                                    ) : (
-                                        <>Login</>
-                                    )}
-                                </Button>
+                                <div className="flex justify-between">
+                                    <Button type="submit">
+                                        {isLoading ? (
+                                            <>
+                                                Logging in <SyncLoader />
+                                            </>
+                                        ) : (
+                                            <>Login</>
+                                        )}
+                                    </Button>
+                                    <Link to="/">
+                                        <Button variant={"outline"}>
+                                            Back to Home
+                                        </Button>
+                                    </Link>
+                                </div>
                             </form>
                         </Form>
-                        <CardFooter>
-                            <Link to="/">Back to Home</Link>
-                        </CardFooter>
                     </CardContent>
+                    <CardFooter>
+                        <P variant={"destructive"}>{errMsg}</P>
+                    </CardFooter>
                 </Card>
             </SectionContentWrapper>
         </SectionWrapper>

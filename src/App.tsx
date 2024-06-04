@@ -3,7 +3,6 @@ import Layout from "./components/Layout";
 import Public from "./components/Public";
 import Login from "./features/auth/Login";
 import LoginForm from "./features/auth/LoginForm";
-import DashLayout from "./components/DashLayout";
 import Welcome from "./features/auth/Welcome";
 import NotesList from "./features/notes/NotesList";
 import UsersList from "./features/users/UsersList";
@@ -16,6 +15,8 @@ import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import { ROLES } from "./config/roles";
 import useTitle from "./hooks/useTitle";
+import DashLayout from "./components/DashLayoutNew";
+// import DashLayout from "./components/DashLayout";
 
 function App() {
     useTitle("Dan D. Repairs");
