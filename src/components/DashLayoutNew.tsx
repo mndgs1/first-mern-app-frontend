@@ -64,14 +64,11 @@ const DashLayout = () => {
                         }
                         onClick={onNotesClicked}
                         size={isExpanded ? "default" : "icon"}
-                        className={`transition-all duration-300 ${
+                        className={
                             isExpanded ? "justify-start w-full gap-2" : ""
-                        }`}>
+                        }>
                         <FileTextIcon className="h-5 w-5" />
-                        <span
-                            className={`transition-all duration-300 ${
-                                isExpanded ? "block" : "hidden"
-                            }`}>
+                        <span className={isExpanded ? "block" : "hidden"}>
                             Notes
                         </span>
                     </Button>
@@ -82,11 +79,12 @@ const DashLayout = () => {
                                 : "ghost"
                         }
                         onClick={onUsersClicked}
-                        className={`justify-start gap-2 w-full transition-all duration-300 ${
-                            isExpanded ? "flex" : "justify-center"
-                        }`}>
+                        size={isExpanded ? "default" : "icon"}
+                        className={
+                            isExpanded ? "justify-start w-full gap-2" : ""
+                        }>
                         <UsersIcon className="h-5 w-5" />
-                        <span className={isExpanded ? "" : "hidden"}>
+                        <span className={isExpanded ? "block" : "hidden"}>
                             Users
                         </span>
                     </Button>

@@ -97,6 +97,16 @@ interface SectionProps {
     id: string;
 }
 
+interface User {
+    id: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    roles: string[];
+    active: boolean;
+}
+
 export type {
     Content,
     HeaderContent,
@@ -111,4 +121,5 @@ export type {
     AboutUsSection,
     TeamSection,
     SectionProps,
+    User,
 };

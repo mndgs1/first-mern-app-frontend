@@ -51,7 +51,6 @@ const LoginForm = () => {
     const [login, { isLoading }] = useLoginMutation();
     const errRef = React.useRef();
     const [errMsg, setErrMsg] = React.useState("");
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [persist, setPersist] = usePersist();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -67,13 +66,12 @@ const LoginForm = () => {
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         try {
-            const { username, password, persist } = data;
+            const { username, password } = data;
             const { accessToken } = await login({
                 username,
                 password,
             }).unwrap();
 
-            setPersist(persist);
             dispatch(setCredentials({ accessToken }));
             navigate("/dash");
         } catch (error) {
@@ -147,6 +145,9 @@ const LoginForm = () => {
                                                     checked={field.value}
                                                     onCheckedChange={
                                                         field.onChange
+                                                    }
+                                                    onClick={() =>
+                                                        setPersist(!persist)
                                                     }
                                                 />
                                             </FormControl>
