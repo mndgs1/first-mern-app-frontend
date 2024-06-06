@@ -147,7 +147,9 @@ const LoginForm = () => {
                                                         field.onChange
                                                     }
                                                     onClick={() =>
-                                                        setPersist(!persist)
+                                                        setPersist(
+                                                            (prev) => !prev
+                                                        )
                                                     }
                                                 />
                                             </FormControl>

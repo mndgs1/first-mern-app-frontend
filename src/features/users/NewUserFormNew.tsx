@@ -26,18 +26,19 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 import { Input } from "@/components/ui/input";
-import { User } from "@/types";
-import { EditIcon } from "lucide-react";
 import { SaveIcon } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useUpdateUserMutation } from "./usersApiSlice";
+import { useAddNewUserMutation } from "./usersApiSlice";
 
 const formSchema = z.object({
     username: z.string().min(2, {
         message: "Username must be at least 2 characters.",
+    }),
+    password: z.string().min(2, {
+        message: "Password must be at least 2 characters.",
     }),
     firstName: z.string().min(2, {
         message: "First name must be at least 2 characters.",
@@ -49,37 +50,35 @@ const formSchema = z.object({
         .string()
         .min(1, { message: "This field has to be filled." })
         .email("This is not a valid email."),
-    active: z.boolean(),
     role: z.string(),
 });
 
-const EditUserForm = ({ user }: { user: User }) => {
-    const [updateUser, { isLoading, isSuccess, isError, error }] =
-        useUpdateUserMutation();
+const EditUserForm = () => {
+    const [addNewUser, { isLoading, isSuccess, isError, error }] =
+        useAddNewUserMutation();
 
     const { toast } = useToast();
     const [open, setOpen] = useState(false);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            role: user.roles[user.roles.length - 1],
-            active: user.active,
+            username: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            role: "",
+            password: "",
         },
     });
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const { username, firstName, lastName, email, active, role } = values;
-        console.log(values);
-        await updateUser({
-            id: user.id,
+        console.log("shoot");
+        const { username, firstName, lastName, email, role, password } = values;
+        await addNewUser({
             username,
+            password,
             firstName,
             lastName,
             email,
-            active,
             roles: [role],
         });
         setOpen(false);
@@ -88,8 +87,7 @@ const EditUserForm = ({ user }: { user: User }) => {
     useEffect(() => {
         if (isSuccess) {
             toast({
-                title: `${user.firstName} ${user.lastName}`,
-                description: "Was changed succesfully!",
+                title: `New User Created!`,
             });
         }
         if (isError) {
@@ -98,23 +96,19 @@ const EditUserForm = ({ user }: { user: User }) => {
                 variant: "destructive",
             });
         }
-    }, [isSuccess, isError, error, user.firstName, user.lastName, toast]);
+    }, [isSuccess, isError, toast, error]);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant={"ghost"} size={"icon"}>
-                    <EditIcon className={"h-4 w-4"} />
-                </Button>
+                <Button>Create User</Button>
             </DialogTrigger>
             <DialogContent
                 onInteractOutside={(e) => {
                     e.preventDefault();
                 }}>
                 <DialogHeader className="mb-6">
-                    <DialogTitle>
-                        Edit {`${user.firstName} ${user.lastName}`}
-                    </DialogTitle>
+                    <DialogTitle>New User</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form
@@ -129,10 +123,7 @@ const EditUserForm = ({ user }: { user: User }) => {
                                     <FormItem className="w-full">
                                         <FormLabel>Username</FormLabel>
                                         <FormControl>
-                                            <Input
-                                                placeholder="shadcn"
-                                                {...field}
-                                            />
+                                            <Input {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -146,11 +137,7 @@ const EditUserForm = ({ user }: { user: User }) => {
                                         <FormLabel>Role</FormLabel>
                                         <Select
                                             onValueChange={field.onChange}
-                                            defaultValue={
-                                                user.roles[
-                                                    user.roles.length - 1
-                                                ]
-                                            }>
+                                            value={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select Role" />
@@ -215,11 +202,20 @@ const EditUserForm = ({ user }: { user: User }) => {
                                 </FormItem>
                             )}
                         />
-
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <DialogFooter className="flex flex-col gap-2 justify-between">
-                            {/* <Button variant={"destructive"}>
-                                Deactive User
-                            </Button> */}
                             <Button
                                 variant={"outline"}
                                 onClick={() => setOpen(!open)}
@@ -230,7 +226,7 @@ const EditUserForm = ({ user }: { user: User }) => {
                                 variant={"primary"}
                                 className="gap-1"
                                 type="submit">
-                                Save Changes
+                                Create User
                                 <SaveIcon className="h-4 w-4" />
                             </Button>
                         </DialogFooter>

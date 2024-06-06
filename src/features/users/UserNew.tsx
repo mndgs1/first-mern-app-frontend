@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { useGetUsersQuery } from "./usersApiSlice";
 // import { memo } from "react";
 import useAuth from "@/hooks/useAuth";
 import { TableRow, TableCell } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { User } from "@/types";
 import EditUserFormNew from "./EditUserFormNew";
@@ -16,14 +14,7 @@ const UserTableRow = ({ userId }: { userId: string }) => {
         }),
     });
 
-    const navigate = useNavigate();
-
-    console.log(user);
-    const asd = user.roles.includes("Manager");
-    console.log(asd);
     if (user) {
-        const handleEdit = () => navigate(`/dash/users/${userId}`);
-
         return (
             <TableRow key={user.id}>
                 <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
@@ -47,9 +38,7 @@ const UserTableRow = ({ userId }: { userId: string }) => {
                 </TableCell>
                 {(isManager || isAdmin) && (
                     <TableCell className="max-w-24">
-                        <Button variant={"ghost"} size={"icon"}>
-                            <EditUserFormNew user={user} />
-                        </Button>
+                        <EditUserFormNew user={user} />
                     </TableCell>
                 )}
             </TableRow>

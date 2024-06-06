@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -14,15 +14,20 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import { useGetUsersQuery } from "./usersApiSlice";
-import { ArrowUpDownIcon } from "lucide-react";
+import { ArrowUpDownIcon, SearchIcon } from "lucide-react";
 import useTitle from "@/hooks/useTitle";
 import UserTableRow from "./UserNew";
 import Spinner from "@/components/ui/spinner";
 import { useNavigate } from "react-router-dom";
+import NewUserForm from "./NewUserFormNew";
 
 import useAuth from "@/hooks/useAuth";
+import { User } from "@/types";
+import useFilteredAndSorted from "@/hooks/useFilters";
+
 const UsersListNew = () => {
     useTitle("Users | Dan D. Repairs");
     const { isManager, isAdmin } = useAuth();
@@ -46,6 +51,7 @@ const UsersListNew = () => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true,
     });
+    //
 
     const handleAddUser = () => {
         navigate("/dash/users/new");
@@ -55,14 +61,12 @@ const UsersListNew = () => {
         content = <Spinner />;
     }
     if (isSuccess) {
-        const { ids } = users;
-        console.log(users);
-        const tableContent =
-            ids?.length &&
-            ids.map((userId: string) => (
-                <UserTableRow key={userId} userId={userId} />
-            ));
-        const handleSort = (key) => {
+        const { ids, entities } = users;
+
+        console.log(ids);
+        console.log(entities);
+
+        const handleSort = (key: string) => {
             if (sortColumn.key === key) {
                 setSortColumn({
                     key,
@@ -73,11 +77,31 @@ const UsersListNew = () => {
             }
         };
 
+        const handleSearch = (e: any) => {
+            setSearch(e.target.value);
+        };
+
+        const tableContent =
+            ids?.length &&
+            ids.map((userId: string) => (
+                <UserTableRow key={userId} userId={userId} />
+            ));
+
         content = (
             <div className="p-6 space-y-6">
                 <div className="flex items-center justify-between">
                     <h1 className="text-2xl font-bold">Users</h1>
                     <div className="flex items-center gap-4">
+                        <div className="relative">
+                            <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                            <Input
+                                type="search"
+                                placeholder="Search users..."
+                                className="pl-8 pr-4 py-2 rounded-md bg-white dark:bg-gray-950"
+                                value={search}
+                                onChange={handleSearch}
+                            />
+                        </div>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline" className="shrink-0">
@@ -104,9 +128,7 @@ const UsersListNew = () => {
                                 </DropdownMenuRadioGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        <Button size="sm" onClick={handleAddUser}>
-                            Add User
-                        </Button>
+                        <NewUserForm />
                     </div>
                 </div>
                 <Table>
