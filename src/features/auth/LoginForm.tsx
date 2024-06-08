@@ -11,7 +11,7 @@ import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 import { useDispatch } from "react-redux";
 
-import { SyncLoader } from "react-spinners";
+import { Oval } from "react-loader-spinner";
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -162,10 +162,13 @@ const LoginForm = () => {
                                     )}
                                 />
                                 <div className="flex justify-between">
-                                    <Button type="submit">
+                                    <Button
+                                        type="submit"
+                                        className="flex gap-2">
                                         {isLoading ? (
                                             <>
-                                                Logging in <SyncLoader />
+                                                Logging in{"  "}
+                                                <Oval height={12} width={12} />
                                             </>
                                         ) : (
                                             <>Login</>
