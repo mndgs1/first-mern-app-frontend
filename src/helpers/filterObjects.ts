@@ -1,4 +1,4 @@
-const filterObject = (array: object[], search: string) => {
+const filterObjects = (array: object[], search: string) => {
     if (!search) {
         return array;
     }
@@ -12,4 +12,4 @@ const filterObject = (array: object[], search: string) => {
     });
 };
 
-export default filterObject;
+export default filterObjects;

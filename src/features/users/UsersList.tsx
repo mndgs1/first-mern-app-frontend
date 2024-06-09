@@ -25,8 +25,8 @@ import NewUserForm from "./NewUserForm";
 
 import useAuth from "@/hooks/useAuth";
 import { User } from "@/types";
-import sortAndFilter from "@/helpers/sortObject";
-import filterObject from "@/helpers/filterObject";
+import sortObjects from "@/helpers/sortObjects";
+import filterObjects from "@/helpers/filterObjects";
 
 const UsersListNew = () => {
     useTitle("Users | Dan D. Repairs");
@@ -70,13 +70,13 @@ const UsersListNew = () => {
                 setSortColumn({ key, order: "asc" });
             }
         };
-        const sortedUsers: User[] = sortAndFilter(entities, sortColumn);
+        const sortedUsers: User[] = sortObjects(entities, sortColumn);
 
         const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
             setSearch(e.target.value);
         };
         const searchedAndSortedUsers =
-            (filterObject(sortedUsers, search) as User[]) || [];
+            (filterObjects(sortedUsers, search) as User[]) || [];
 
         console.log(searchedAndSortedUsers);
 

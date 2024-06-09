@@ -7,7 +7,7 @@ type AnyObject = {
     [key: string]: any;
 };
 
-const filteredAndSorted = <T extends AnyObject>(
+const sortObjects = <T extends AnyObject>(
     array: { [key: string]: T },
     sortColumn: SortColumn
 ): T[] => {
@@ -25,4 +25,4 @@ const filteredAndSorted = <T extends AnyObject>(
     return sortedArray;
 };
 
-export default filteredAndSorted;
+export default sortObjects;

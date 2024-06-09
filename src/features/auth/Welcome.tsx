@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import Dashboard from "@/components/Dashboard";
 
 const Welcome = () => {
     const { username, isManager, isAdmin } = useAuth();
@@ -36,7 +35,6 @@ const Welcome = () => {
                     </p>
                 )}
             </section>
-            <Dashboard />
         </>
     );
 
