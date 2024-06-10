@@ -1,20 +1,21 @@
-// @ts-nocheck
 import { useParams } from "react-router-dom";
 import EditUserForm from "./EditUserForm";
-
 import { useGetUsersQuery } from "./usersApiSlice";
-import { PulseLoader } from "react-spinners";
+import { User } from "@/types";
+import { Loader } from "lucide-react";
 
 const EditUser = () => {
     const { id } = useParams();
 
     const { user } = useGetUsersQuery("usersList", {
         selectFromResult: ({ data }) => ({
-            user: data?.entities[id],
+            user: data?.entities[id as string] as User | undefined,
         }),
     });
 
-    if (!user) return <PulseLoader color={"#FFF"} />;
+    if (!user) {
+        return <Loader />;
+    }
 
     const content = <EditUserForm user={user} />;
 

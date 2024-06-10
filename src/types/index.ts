@@ -105,6 +105,7 @@ interface User {
     email: string;
     roles: string[];
     active: boolean;
+    _id: string;
 }
 interface Note {
     id: string;

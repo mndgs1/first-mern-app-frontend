@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { useGetNotesQuery } from "./notesApiSlice";
 import Note from "./Note";
 import useAuth from "../../hooks/useAuth";
 import { SyncLoader } from "react-spinners";
 import useTitle from "../../hooks/useTitle";
+import { P } from "@/components/typography/Paragraph";
 
 const NotesList = () => {
     useTitle("Notes | Dan D. Repairs");
@@ -27,7 +27,8 @@ const NotesList = () => {
     if (isLoading) content = <SyncLoader />;
 
     if (isError) {
-        content = <p className="errmsg">{error?.data?.message}</p>;
+        console.log(error);
+        content = <P variant="destructive">Oops something went wrong!</P>;
     }
 
     if (isSuccess) {
@@ -39,12 +40,14 @@ const NotesList = () => {
             filteredIds = [...ids];
         } else {
             filteredIds = ids.filter(
-                (noteId) => entities[noteId].username === username
+                (noteId: string) => entities[noteId].username === username
             );
         }
         const tableContent =
             filteredIds?.length &&
-            filteredIds.map((noteId) => <Note key={noteId} noteId={noteId} />);
+            filteredIds.map((noteId: string) => (
+                <Note key={noteId} noteId={noteId} />
+            ));
 
         content = (
             <table className="table table--notes">

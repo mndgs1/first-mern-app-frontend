@@ -55,7 +55,8 @@ const NotesList = () => {
     }
 
     if (isError) {
-        content = <P variant={"destructive"}>{error?.data?.message}</P>;
+        console.log(error);
+        content = <P variant={"destructive"}>Oops Something went wrong!</P>;
     }
     if (isSuccess) {
         const { ids, entities } = notes;
@@ -68,9 +69,8 @@ const NotesList = () => {
             filteredIds = ids.filter(
                 (noteId: string) => entities[noteId].username === username
             );
+            console.log(filteredIds);
         }
-
-        console.log(filteredIds);
 
         const handleSort = (key: string) => {
             if (sortColumn.key === key) {
