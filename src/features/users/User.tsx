@@ -12,9 +12,9 @@ type UserTableRow = {
 
 const UserTableRow = ({ userId }: UserTableRow) => {
     const { isManager, isAdmin } = useAuth();
-    const { user }: { user: User } = useGetUsersQuery("usersList", {
+    const { user } = useGetUsersQuery("usersList", {
         selectFromResult: ({ data }) => ({
-            user: data.entities[userId],
+            user: data?.entities[userId] as User | undefined,
         }),
     });
 

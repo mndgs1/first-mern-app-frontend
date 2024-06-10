@@ -70,15 +70,13 @@ const UsersListNew = () => {
                 setSortColumn({ key, order: "asc" });
             }
         };
-        const sortedUsers: User[] = sortObjects(entities, sortColumn);
+        const sortedUsers = sortObjects(entities, sortColumn);
 
         const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
             setSearch(e.target.value);
         };
         const searchedAndSortedUsers =
             (filterObjects(sortedUsers, search) as User[]) || [];
-
-        console.log(searchedAndSortedUsers);
 
         const tableContent =
             searchedAndSortedUsers.length &&

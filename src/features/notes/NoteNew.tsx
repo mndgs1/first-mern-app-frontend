@@ -6,11 +6,11 @@ import { Note } from "@/types";
 import { useGetNotesQuery } from "./notesApiSlice";
 import useAuth from "@/hooks/useAuth";
 import { useGetUsersQuery } from "../users/usersApiSlice";
-import { User } from "@/types";
 import EditNoteForm from "./EditNoteFormNew";
 type NoteTableRow = {
     noteId: string;
 };
+import { User } from "@/types";
 
 const NoteTableRow = ({ noteId }: NoteTableRow) => {
     const { isAdmin, isManager } = useAuth();
@@ -20,13 +20,11 @@ const NoteTableRow = ({ noteId }: NoteTableRow) => {
         }),
     });
 
-    const { user }: { user: User } = useGetUsersQuery("usersList", {
+    const { user } = useGetUsersQuery("usersList", {
         selectFromResult: ({ data }) => ({
-            user: data.entities[note.user],
+            user: data?.entities[note.user] as User | undefined,
         }),
     });
-
-    console.log(user);
 
     if (note) {
         const created = new Date(note.createdAt).toLocaleString("en-US", {
@@ -45,7 +43,7 @@ const NoteTableRow = ({ noteId }: NoteTableRow) => {
             <TableRow key={note.id}>
                 <TableCell>{note.ticket}</TableCell>
                 {(isAdmin || isManager) && (
-                    <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
+                    <TableCell>{`${user?.firstName} ${user?.lastName}`}</TableCell>
                 )}
                 <TableCell>{note.title}</TableCell>
                 <TableCell>{note.text}</TableCell>

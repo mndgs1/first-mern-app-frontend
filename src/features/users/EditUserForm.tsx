@@ -72,7 +72,6 @@ const EditUserForm = ({ user }: { user: User }) => {
     });
     async function onSubmit(values: z.infer<typeof formSchema>) {
         const { username, firstName, lastName, email, active, role } = values;
-        console.log(values);
         await updateUser({
             id: user.id,
             username,

@@ -71,7 +71,6 @@ const EditUserForm = () => {
         },
     });
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log("shoot");
         const { username, firstName, lastName, email, role, password } = values;
         if (!role) {
             await addNewUser({

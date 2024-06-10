@@ -6,6 +6,7 @@ import usePersist from "../../hooks/usePersist";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "./authSlice";
 import { SyncLoader } from "react-spinners";
+import Spinner from "@/components/ui/spinner";
 
 const PersistLogin = () => {
     const [persist] = usePersist();
@@ -25,7 +26,6 @@ const PersistLogin = () => {
             // React 18 Strict Mode
 
             const verifyRefreshToken = async () => {
-                console.log("verifying refresh token");
                 try {
                     //const response =
                     await refresh("");
@@ -49,15 +49,12 @@ const PersistLogin = () => {
     let content;
     if (!persist) {
         // persist: no
-        console.log("no persist");
         content = <Outlet />;
     } else if (isLoading) {
         //persist: yes, token: no
-        console.log("loading");
-        content = <SyncLoader />;
+        content = <Spinner />;
     } else if (isError) {
         //persist: yes, token: no
-        console.log("error");
         content = (
             <p className="errmsg">
                 {` ${error?.data?.message} - `}
@@ -66,12 +63,9 @@ const PersistLogin = () => {
         );
     } else if (isSuccess && trueSuccess) {
         //persist: yes, token: yes
-        console.log("success");
         content = <Outlet />;
     } else if (token && isUninitialized) {
         //persist: yes, token: yes
-        console.log("token and uninit");
-        console.log(isUninitialized);
         content = <Outlet />;
     }
 
