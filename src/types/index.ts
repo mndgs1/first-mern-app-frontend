@@ -106,6 +106,17 @@ interface User {
     roles: string[];
     active: boolean;
 }
+interface Note {
+    id: string;
+    user: string;
+    title: string;
+    text: string;
+    client: string;
+    active: boolean;
+    createdAt: string;
+    updatedAt: string;
+    ticket: string;
+}
 
 export type {
     Content,
@@ -122,4 +133,5 @@ export type {
     TeamSection,
     SectionProps,
     User,
+    Note,
 };
