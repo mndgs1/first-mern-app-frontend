@@ -48,12 +48,7 @@ const NoteTableRow = ({ noteId }: { noteId: string }) => {
                 <TableCell>{created}</TableCell>
                 <TableCell>{updated}</TableCell>
                 <TableCell>
-                    <Badge
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            note.completed
-                                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                                : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
-                        }`}>
+                    <Badge variant={note.completed ? "success" : "warning"}>
                         {note.completed ? "Completed" : "Assigned"}
                     </Badge>
                 </TableCell>

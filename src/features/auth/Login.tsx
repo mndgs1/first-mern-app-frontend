@@ -68,7 +68,7 @@ const LoginForm = () => {
             }).unwrap();
 
             dispatch(setCredentials({ accessToken }));
-            navigate("/dash");
+            navigate("/dash/notes");
         } catch (error) {
             console.log(error);
         }
