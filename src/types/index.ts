@@ -113,7 +113,7 @@ interface Note {
     title: string;
     text: string;
     client: string;
-    active: boolean;
+    completed: boolean;
     createdAt: string;
     updatedAt: string;
     ticket: string;

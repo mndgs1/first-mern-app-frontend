@@ -53,11 +53,11 @@ const NoteTableRow = ({ noteId }: NoteTableRow) => {
                 <TableCell>
                     <Badge
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            note.active
+                            note.completed
                                 ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
                                 : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
                         }`}>
-                        {note.active ? "Done" : "Assigned"}
+                        {note.completed ? "Completed" : "Assigned"}
                     </Badge>
                 </TableCell>
                 <TableCell className="max-w-24">
