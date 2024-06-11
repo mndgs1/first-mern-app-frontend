@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useAuth from "@/hooks/useAuth";
 import { User } from "lucide-react";
 
 import { useSendLogoutMutation } from "../features/auth/authApiSlice";
@@ -25,6 +26,8 @@ const DashHeader = () => {
     const [, setPersist] = usePersist();
 
     const [sendLogout, { isLoading, isSuccess }] = useSendLogoutMutation();
+
+    const { username } = useAuth();
 
     const handleLogout = async () => {
         await sendLogout(null);
@@ -39,7 +42,7 @@ const DashHeader = () => {
         <Spinner />;
     }
     return (
-        <header className="flex h-16 items-center justify-end px-6 border-b bg-gray-100 dark:bg-gray-800 dark:border-gray-700 w-full z-10">
+        <header className="flex h-16 items-center justify-end px-6 border-b border-border bg-background w-full z-10">
             <div className="flex gap-2">
                 <ThemeSwitch />
                 <DropdownMenu>
@@ -47,14 +50,14 @@ const DashHeader = () => {
                         <Button variant={"outline"} size={"icon"}>
                             <Avatar>
                                 <AvatarImage src="asd" />
-                                <AvatarFallback>
+                                <AvatarFallback className="border bg-background">
                                     <User />
                                 </AvatarFallback>
                             </Avatar>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuLabel>{username}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>Settings</DropdownMenuItem>
                         <DropdownMenuSeparator />

@@ -19,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Spinner from "@/components/ui/spinner";
-import { ArrowUpDownIcon, SearchIcon } from "lucide-react";
+import { ArrowUpDownIcon, SearchIcon, X } from "lucide-react";
 import sortObjects from "@/helpers/sortObjects";
 import filterObjects from "@/helpers/filterObjects";
 import { Note } from "@/types";
@@ -102,14 +102,20 @@ const NotesList = () => {
                     <h1 className="text-2xl font-bold">Notes</h1>
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
                             <Input
-                                type="search"
                                 placeholder="Search notes..."
-                                className="pl-8 pr-4 py-2 rounded-md bg-white dark:bg-gray-950"
+                                className="px-4"
                                 value={search}
                                 onChange={handleSearch}
                             />
+                            {!search ? (
+                                <SearchIcon className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 dark:text-gray-400" />
+                            ) : (
+                                <X
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 dark:text-gray-400"
+                                    onClick={() => setSearch("")}
+                                />
+                            )}
                         </div>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>

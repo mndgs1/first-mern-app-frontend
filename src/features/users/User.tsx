@@ -26,15 +26,17 @@ const UserTableRow = ({ userId }: UserTableRow) => {
                 <TableCell>{user.username}</TableCell>
                 <TableCell>
                     <Badge
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            !user.active
-                                ? "bg-gray-100 text-gray-800"
-                                : user.roles.includes("Manager")
-                                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                                : user.roles.includes("Employee")
-                                ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-                                : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"
-                        }`}>
+                        variant={
+                            user.active
+                                ? user.roles.includes("Admin")
+                                    ? "destructive"
+                                    : user.roles.includes("Manager")
+                                    ? "success"
+                                    : user.roles.includes("Employee")
+                                    ? "warning"
+                                    : "secondary"
+                                : "outline"
+                        }>
                         {user.active
                             ? user.roles[user.roles.length - 1]
                             : "Inactive"}
