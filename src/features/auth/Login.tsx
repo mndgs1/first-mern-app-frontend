@@ -1,124 +1,184 @@
-// @ts-nocheck
-import { useRef, useState, useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { useNavigate, Link } from "react-router-dom";
+import { H2 } from "@/components/typography/Heading";
 
 import { setCredentials } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
 import { useDispatch } from "react-redux";
-import { SyncLoader } from "react-spinners";
+
+import { Oval } from "react-loader-spinner";
+import { Button } from "@/components/ui/button";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardFooter,
+} from "@/components/ui/card";
+import SectionContentWrapper from "@/components/sections/SectionContentWrapper";
+import SectionWrapper from "@/components/sections/SectionWrapper";
 
 import usePersist from "../../hooks/usePersist";
-
 import useTitle from "../../hooks/useTitle";
+import { P } from "@/components/typography/Paragraph";
+import { Checkbox } from "@/components/ui/checkbox";
 
-const Login = () => {
-    useTitle("Login | Dan D. Repairs");
-    const userRef = useRef();
-    const errRef = useRef();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [errMsg, setErrMsg] = useState("");
-    const [persist, setPersist] = usePersist();
+const FormSchema = z.object({
+    username: z.string().min(2, {
+        message: "Username must be at least 2 characters.",
+    }),
+    password: z.string().min(2, {
+        message: "Password must be at least 2 characters.",
+    }),
+    persist: z.boolean().default(false).optional(),
+});
 
+const LoginForm = () => {
+    useTitle("Login");
+    const [login, { isLoading, isError }] = useLoginMutation();
+    const [, setPersist] = usePersist();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [login, { isLoading }] = useLoginMutation();
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+            username: "",
+            password: "",
+            persist: false,
+        },
+    });
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, []);
-
-    useEffect(() => {
-        setErrMsg("");
-    }, [username, password]);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    async function onSubmit(data: z.infer<typeof FormSchema>) {
         try {
+            const { username, password } = data;
             const { accessToken } = await login({
                 username,
                 password,
             }).unwrap();
 
             dispatch(setCredentials({ accessToken }));
-            setUsername("");
-            setPassword("");
             navigate("/dash");
         } catch (error) {
-            if (!error.status) {
-                setErrMsg("No Server Response");
-            } else if (error.status === 400) {
-                setErrMsg("Missing username or password");
-            } else if (error.status === 401) {
-                setErrMsg("Unauthorized");
-            } else {
-                setErrMsg(error?.data?.message);
-            }
-            errRef.current.focus();
+            console.log(error);
         }
-    };
+    }
 
-    const handleUserInput = (e) => setUsername(e.target.value);
-    const handlePwdInput = (e) => setPassword(e.target.value);
-    const handleToggle = () => setPersist((prev) => !prev);
+    return (
+        <SectionWrapper>
+            <SectionContentWrapper className="max-w-2xl">
+                <Card className="overflow-hidden">
+                    <CardHeader>
+                        <H2>Login</H2>
+                        <P variant={"muted"}>lorem ibsum ibsum ibsum</P>
+                    </CardHeader>
+                    <CardContent>
+                        <Form {...form}>
+                            <form
+                                onSubmit={form.handleSubmit(onSubmit)}
+                                className="space-y-6">
+                                <FormField
+                                    control={form.control}
+                                    name="username"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Username</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Doe"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Password</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder=""
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
-    const errClass = errMsg ? "errmsg" : "offscreen";
-
-    if (isLoading) return <SyncLoader />;
-
-    const content = (
-        <section className="public">
-            <header>
-                <h1>Employee Login</h1>
-            </header>
-            <main className="login">
-                <form onSubmit={handleSubmit} className="form">
-                    <p ref={errRef} className={errClass} aria-live="assertive">
-                        {errMsg}
-                    </p>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        value={username}
-                        onChange={handleUserInput}
-                        autoComplete="off"
-                        required
-                        className="form__input"
-                    />
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        ref={errRef}
-                        value={password}
-                        onChange={handlePwdInput}
-                        autoComplete="off"
-                        required
-                        className="form__input"
-                    />
-                    <button className="form__submit-button">Sign In</button>
-                    <label htmlFor="persist" className="form__persist">
-                        <input
-                            type="checkbox"
-                            id="persist"
-                            onChange={handleToggle}
-                            checked={persist}
-                            className="form__checkbox"
-                        />
-                        Trust this Device
-                    </label>
-                </form>
-            </main>
-            <footer>
-                <Link to="/">Back to Home</Link>
-            </footer>
-        </section>
+                                <FormField
+                                    control={form.control}
+                                    name="persist"
+                                    render={({ field }) => (
+                                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={
+                                                        field.onChange
+                                                    }
+                                                    onClick={() =>
+                                                        setPersist(
+                                                            (prev) => !prev
+                                                        )
+                                                    }
+                                                />
+                                            </FormControl>
+                                            <div className="space-y-1 leading-none">
+                                                <FormLabel>
+                                                    Remember this device
+                                                </FormLabel>
+                                            </div>
+                                        </FormItem>
+                                    )}
+                                />
+                                <div className="flex justify-between">
+                                    <Button
+                                        type="submit"
+                                        className="flex gap-2">
+                                        {isLoading ? (
+                                            <>
+                                                Logging in{"  "}
+                                                <Oval height={12} width={12} />
+                                            </>
+                                        ) : (
+                                            <>Login</>
+                                        )}
+                                    </Button>
+                                    <Link to="/">
+                                        <Button variant={"outline"}>
+                                            Back to Home
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </form>
+                        </Form>
+                    </CardContent>
+                    <CardFooter>
+                        {isError && (
+                            <P variant={"destructive"}>
+                                Oops Something went wrong!
+                            </P>
+                        )}
+                    </CardFooter>
+                </Card>
+            </SectionContentWrapper>
+        </SectionWrapper>
     );
-
-    return content;
 };
 
-export default Login;
+export default LoginForm;

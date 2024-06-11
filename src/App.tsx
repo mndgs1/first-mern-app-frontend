@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Public from "./components/Public";
-import LoginForm from "./features/auth/LoginForm";
+import LoginForm from "./features/auth/Login";
 import Welcome from "./features/auth/Welcome";
-import NotesList from "./features/notes/NotesListNew";
+import NotesList from "./features/notes/NotesList";
 import UsersList from "./features/users/UsersList";
 import EditUser from "./features/users/EditUser";
 import NewUserForm from "./features/users/NewUserForm";
@@ -61,8 +61,6 @@ function App() {
 
                                 <Route path="notes">
                                     <Route index element={<NotesList />} />
-                                    <Route path=":id" element={<EditNote />} />
-                                    <Route path="new" element={<NewNote />} />
                                 </Route>
                             </Route>
                             {/* End Dash */}
