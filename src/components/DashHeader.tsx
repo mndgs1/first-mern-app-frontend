@@ -1,11 +1,8 @@
 import { useEffect } from "react";
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-// NEW IMPORTS
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -20,26 +17,27 @@ import { User } from "lucide-react";
 
 import { useSendLogoutMutation } from "../features/auth/authApiSlice";
 import ThemeSwitch from "./ThemeSwitch";
+import usePersist from "@/hooks/usePersist";
+import Spinner from "./ui/spinner";
 
 const DashHeader = () => {
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+    const [, setPersist] = usePersist();
 
-    const handleSearch = (e) => {
-        setSearch(e.target.value);
-    };
-
-    const [sendLogout, { isLoading, isSuccess, isError, error }] =
-        useSendLogoutMutation();
+    const [sendLogout, { isLoading, isSuccess }] = useSendLogoutMutation();
 
     const handleLogout = async () => {
-        await sendLogout();
+        await sendLogout(null);
+        setPersist(false);
         navigate("/");
     };
     useEffect(() => {
         if (isSuccess) navigate("/");
     }, [isSuccess, navigate]);
 
+    if (isLoading) {
+        <Spinner />;
+    }
     return (
         <header className="flex h-16 items-center justify-end px-6 border-b bg-gray-100 dark:bg-gray-800 dark:border-gray-700 w-full z-10">
             <div className="flex gap-2">

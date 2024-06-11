@@ -57,14 +57,12 @@ const EditNoteForm = ({ note }: { note: Note }) => {
     const { isAdmin, isManager } = useAuth();
     const [updateNote, { isLoading, isSuccess, isError, error }] =
         useUpdateNoteMutation();
-    const { data: usersData, isLoading: usersLoading } = useGetUsersQuery(
-        "usersList",
-        {
-            pollingInterval: 60000,
-            refetchOnFocus: true,
-            refetchOnMountOrArgChange: true,
-        }
-    );
+
+    const { users } = useGetUsersQuery("usersList", {
+        selectFromResult: ({ data }) => ({
+            users: data?.ids.map((id) => data?.entities[id]),
+        }),
+    });
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -82,7 +80,7 @@ const EditNoteForm = ({ note }: { note: Note }) => {
     const [popoverOpen, setPopoverOpen] = useState(false);
 
     const getUserFullNameById = (id: string) => {
-        const user = usersData?.entities[id] as User | undefined;
+        const user = users?.find((user) => user.id === id) as User | undefined;
         return user
             ? getUserFullName(user.firstName, user.lastName)
             : "User not found";
@@ -108,7 +106,7 @@ const EditNoteForm = ({ note }: { note: Note }) => {
         }
     }, [isSuccess, isError, error, note.title, toast]);
 
-    const userSelect = usersData ? (
+    const userSelect = users ? (
         <FormField
             control={form.control}
             name="user"
@@ -143,20 +141,16 @@ const EditNoteForm = ({ note }: { note: Note }) => {
                                         No employee found.
                                     </CommandEmpty>
                                     <CommandGroup>
-                                        {(
-                                            Object.values(
-                                                usersData.entities
-                                            ) as User[]
-                                        ).map((user) => (
+                                        {users.map((user) => (
                                             <CommandItem
                                                 key={user.id}
                                                 value={getUserFullNameById(
-                                                    user.id
+                                                    user.id.toString()
                                                 )}
                                                 onSelect={() => {
                                                     form.setValue(
                                                         "user",
-                                                        user.id
+                                                        user.id.toString()
                                                     );
                                                     setPopoverOpen(false);
                                                 }}>
@@ -168,7 +162,9 @@ const EditNoteForm = ({ note }: { note: Note }) => {
                                                             : "opacity-0"
                                                     )}
                                                 />
-                                                {getUserFullNameById(user.id)}
+                                                {getUserFullNameById(
+                                                    user.id.toString()
+                                                )}
                                             </CommandItem>
                                         ))}
                                     </CommandGroup>
@@ -236,7 +232,7 @@ const EditNoteForm = ({ note }: { note: Note }) => {
                                 </FormItem>
                             )}
                         />
-                        {userSelect}
+                        {(isAdmin || isManager) && userSelect}
                         <FormField
                             control={form.control}
                             name="client"

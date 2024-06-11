@@ -108,6 +108,7 @@ interface User {
     _id: string;
 }
 interface Note {
+    _id: string;
     id: string;
     user: string;
     title: string;
