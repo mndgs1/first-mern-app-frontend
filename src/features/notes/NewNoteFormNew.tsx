@@ -37,26 +37,25 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useUpdateNoteMutation } from "./notesApiSlice";
+import { useAddNewNoteMutation } from "./notesApiSlice";
 import { Textarea } from "@/components/ui/textarea";
 import useAuth from "@/hooks/useAuth";
-import { Check, ChevronsUpDown, SaveIcon, EditIcon } from "lucide-react";
+import { Check, ChevronsUpDown, SaveIcon } from "lucide-react";
 import { useGetUsersQuery } from "../users/usersApiSlice";
 import { getUserFullName } from "@/helpers/getUserFullName";
-import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
     title: z.string().min(2, "Title must be at least 2 characters."),
     text: z.string().min(2, "Description must be at least 5 characters."),
     client: z.string().min(2, "Client name must be at least 2 characters."),
-    user: z.string(),
-    completed: z.boolean(),
+    user: z.string().min(2, "You must assign an employee"),
 });
 
-const EditNoteForm = ({ note }: { note: Note }) => {
+const NewNoteForm = () => {
     const { isAdmin, isManager } = useAuth();
-    const [updateNote, { isLoading, isSuccess, isError, error }] =
-        useUpdateNoteMutation();
+    const [addNewNote, { isLoading, isSuccess, isError, error }] =
+        useAddNewNoteMutation();
+
     const { data: usersData, isLoading: usersLoading } = useGetUsersQuery(
         "usersList",
         {
@@ -69,11 +68,10 @@ const EditNoteForm = ({ note }: { note: Note }) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: note.title,
-            text: note.text,
-            client: note.client,
-            user: note.user,
-            completed: note.completed,
+            title: "",
+            text: "",
+            client: "",
+            user: "",
         },
     });
 
@@ -89,15 +87,14 @@ const EditNoteForm = ({ note }: { note: Note }) => {
     };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        await updateNote({ id: note.id, ...values });
+        await addNewNote({ ...values });
         setOpen(false);
     };
 
     useEffect(() => {
         if (isSuccess) {
             toast({
-                title: note.title,
-                description: "Was changed successfully!",
+                title: "Note Created successfully!",
             });
         }
         if (isError) {
@@ -106,7 +103,7 @@ const EditNoteForm = ({ note }: { note: Note }) => {
                 variant: "destructive",
             });
         }
-    }, [isSuccess, isError, error, note.title, toast]);
+    }, [isSuccess, isError, error, toast]);
 
     const userSelect = usersData ? (
         <FormField
@@ -190,13 +187,11 @@ const EditNoteForm = ({ note }: { note: Note }) => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" type="button">
-                    <EditIcon className="h-4 w-4" />
-                </Button>
+                <Button type="button">Create New Note </Button>
             </DialogTrigger>
             <DialogContent onInteractOutside={(e) => e.preventDefault()}>
                 <DialogHeader className="mb-6">
-                    <DialogTitle>Edit {note.title}</DialogTitle>
+                    <DialogTitle>Create Note</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                     <form
@@ -253,27 +248,7 @@ const EditNoteForm = ({ note }: { note: Note }) => {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="completed"
-                            render={({ field }) => (
-                                <FormItem className="rounded-md p-3 border inline-block">
-                                    <div className="flex flex-row items-center space-x-2 space-y-0 ">
-                                        <FormControl>
-                                            <Checkbox
-                                                checked={field.value}
-                                                onCheckedChange={field.onChange}
-                                            />
-                                        </FormControl>
-                                        <FormLabel>Mark as completed</FormLabel>
-                                    </div>
-                                </FormItem>
-                            )}
-                        />
                         <DialogFooter className="flex flex-col gap-2 justify-between">
-                            <Button variant="destructive" type="button">
-                                Delete
-                            </Button>
                             <Button
                                 variant="outline"
                                 onClick={() => setOpen(!open)}
@@ -284,7 +259,7 @@ const EditNoteForm = ({ note }: { note: Note }) => {
                                 variant="primary"
                                 className="gap-1"
                                 type="submit">
-                                Save Changes <SaveIcon className="h-4 w-4" />
+                                Create Note
                             </Button>
                         </DialogFooter>
                     </form>
@@ -294,4 +269,4 @@ const EditNoteForm = ({ note }: { note: Note }) => {
     );
 };
 
-export default EditNoteForm;
+export default NewNoteForm;

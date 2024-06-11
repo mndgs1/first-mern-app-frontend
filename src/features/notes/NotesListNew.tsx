@@ -25,6 +25,7 @@ import filterObjects from "@/helpers/filterObjects";
 import { Note } from "@/types";
 import { P } from "@/components/typography/Paragraph";
 import NoteTableRow from "./NoteNew";
+import NewNoteForm from "./NewNoteFormNew";
 
 const NotesList = () => {
     useTitle("Notes | Dan D. Repairs");
@@ -41,7 +42,6 @@ const NotesList = () => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true,
     });
-
     let content;
 
     const [sortColumn, setSortColumn] = useState({
@@ -225,7 +225,7 @@ const NotesList = () => {
                                 </DropdownMenuRadioGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        {/* <NewNoteForm /> */}
+                        <NewNoteForm />
                     </div>
                 </div>
                 <Table>
