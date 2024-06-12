@@ -30,8 +30,8 @@ const DashHeader = () => {
     const { username } = useAuth();
 
     const handleLogout = async () => {
-        await sendLogout(null);
         setPersist(false);
+        await sendLogout(null);
         navigate("/");
     };
     useEffect(() => {
