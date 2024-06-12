@@ -5,7 +5,7 @@ import Services from "./sections/Services";
 import AboutUs from "./sections/AboutUs";
 import Testimonials from "./sections/Testimonials";
 import ContactUs from "./sections/ContactUs";
-import Footer from "./sections/Footer";
+import Footer from "./Footer";
 
 const Public = () => {
     return (

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Pc from "@/assets/img/pc.svg?url";
 import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
-import { socialMediaLinks } from "./Footer";
+import { socialMediaLinks } from "../Footer";
 import SocialMedia from "../../ui/SocialMedia";
 
 // Text content object

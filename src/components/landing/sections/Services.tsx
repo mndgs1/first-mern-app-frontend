@@ -58,7 +58,7 @@ const Services = () => {
                     {servicesContent.map((service, index) => (
                         <Card
                             key={index}
-                            className="flex flex-col items-center text-center p-6 border rounded-lg group bg-transparent group ">
+                            className="flex flex-col items-center text-center p-6 border rounded-lg group bg-transparent cursor-pointer group ">
                             <div className="p-3.5 flex items-center justify-center bg-primary rounded text-background">
                                 {service.icon}
                             </div>

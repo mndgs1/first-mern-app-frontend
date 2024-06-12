@@ -41,12 +41,6 @@ const Testimonials = () => {
                 "Amazing experience! They went above and beyond to fix my laptop. I'm extremely satisfied with the result.",
         },
         {
-            name: "Michael Anderson",
-            rating: 4,
-            comment:
-                "Efficient service. Got my computer back faster than expected. Would recommend!",
-        },
-        {
             name: "Jennifer Lee",
             rating: 5,
             comment:
@@ -57,6 +51,12 @@ const Testimonials = () => {
             rating: 5,
             comment:
                 "Great communication throughout the repair process. Highly recommend! Will definitely use their services again if needed.",
+        },
+        {
+            name: "Michael Anderson",
+            rating: 4,
+            comment:
+                "Efficient service. Got my computer back faster than expected. Would recommend!",
         },
     ];
     return (

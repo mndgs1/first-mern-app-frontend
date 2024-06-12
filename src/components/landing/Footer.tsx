@@ -1,4 +1,4 @@
-import SectionWrapper from "./SectionWrapper";
+import SectionWrapper from "./sections/SectionWrapper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFacebook,
@@ -6,7 +6,7 @@ import {
     faYoutube,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import SocialMedia from "../../ui/SocialMedia";
+import SocialMedia from "../ui/SocialMedia";
 
 const footerLinks = [
     { text: "About Us", href: "#" },
