@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
 
@@ -6,27 +5,39 @@ const usersAdapter = createEntityAdapter({});
 
 const initialState = usersAdapter.getInitialState();
 
+import { User } from "@/types";
+import { RootState } from "@/app/store";
+
+interface UserResponse extends User {
+    _id: string;
+}
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query({
             query: () => ({
                 url: "/users",
-                validateStatus: (response, result) => {
+                validateStatus: (
+                    response: { status: number },
+                    result: { isError: boolean }
+                ) => {
                     return response.status === 200 && !result.isError;
                 },
             }),
-            transformResponse: (responseData) => {
+            transformResponse: (responseData: UserResponse[]) => {
                 const loadedUsers = responseData.map((user) => {
                     user.id = user._id;
-                    return user;
+                    return user as User;
                 });
                 return usersAdapter.setAll(initialState, loadedUsers);
             },
-            providesTags: (result, error, arg) => {
+            providesTags: (result) => {
                 if (result?.ids) {
                     return [
                         { type: "User", id: "LIST" },
-                        ...result.ids.map((id) => ({ type: "User", id })),
+                        ...result.ids.map((id) => ({
+                            type: "User" as const,
+                            id,
+                        })),
                     ];
                 } else return [{ type: "User", id: "LIST" }];
             },
@@ -49,7 +60,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     ...initialUserData,
                 },
             }),
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (_result, _error, arg) => [
                 { type: "User", id: arg.id },
             ],
         }),
@@ -59,7 +70,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: "DELETE",
                 body: { id },
             }),
-            invalidatesTags: (result, error, arg) => [
+            invalidatesTags: (_result, _error, arg) => [
                 { type: "User", id: arg.id },
             ],
         }),
@@ -74,7 +85,7 @@ export const {
 } = usersApiSlice;
 
 // returns the query result object
-export const selectUsersResult = usersApiSlice.endpoints.getUsers.select();
+export const selectUsersResult = usersApiSlice.endpoints.getUsers.select("api");
 
 // creates memoized selector
 const selectUsersData = createSelector(
@@ -89,5 +100,5 @@ export const {
     selectIds: selectUserIds,
     // Pass in a selector that returns the users slice of state
 } = usersAdapter.getSelectors(
-    (state) => selectUsersData(state) ?? initialState
+    (state: RootState) => selectUsersData(state) ?? initialState
 );

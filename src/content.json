@@ -1,0 +1,124 @@
+{
+    "header": {
+        "logo": "Logo",
+        "navLinks": [
+            {
+                "label": "Home",
+                "href": "/"
+            },
+            {
+                "label": "Services",
+                "href": "/services"
+            },
+            {
+                "label": "About",
+                "href": "/about"
+            },
+            {
+                "label": "Contact",
+                "href": "/contact"
+            }
+        ],
+        "additionalLinks": []
+    },
+    "homepage": {
+        "sections": {
+            "hero": {
+                "title": "Welcome to TechFix - Your Trusted Computer Repair Shop",
+                "subtitle": "Fast, Reliable, and Affordable Computer Repair Services",
+                "buttons": [{ "text": "asd", "href": "#" }],
+                "backgroundImage": {
+                    "src": "https://example.com/hero-background.jpg",
+                    "alt": "Computer repair hero image"
+                }
+            },
+            "services": {
+                "title": "Our Services",
+                "subtitle": "We offer a wide range of services to keep your PC running smoothly.",
+                "servicesItems": [
+                    {
+                        "title": "Hardware Repair",
+                        "description": "We can diagnose and repair any hardware issues with your PC, including motherboards, CPUs, RAM, and more.",
+                        "icon": "Cpu"
+                    },
+                    {
+                        "title": "Software Troubleshooting",
+                        "description": "Our experts can help you resolve any software issues, from operating system problems to application conflicts.",
+                        "icon": "Code"
+                    },
+                    {
+                        "title": "Virus Removal",
+                        "description": "We can detect and remove any viruses, malware, or other malicious software that may be affecting your PC.",
+                        "icon": "Shield"
+                    },
+                    {
+                        "title": "Data Recovery",
+                        "description": "Our data recovery experts can help you retrieve important files and documents that have been lost or deleted.",
+                        "icon": "Database"
+                    },
+                    {
+                        "title": "Upgrade Consultation",
+                        "description": "Our experts can help you determine the best hardware and software upgrades to improve the performance of your PC.",
+                        "icon": "Cpu"
+                    },
+                    {
+                        "title": "Network Setup",
+                        "description": "We can assist with setting up and configuring your home or office network, ensuring fast and secure connectivity.",
+                        "icon": "Network"
+                    }
+                ]
+            }
+        },
+        "testimonials": [
+            {
+                "quote": "TechFix saved my computer from a nasty virus. Their service was quick and professional.",
+                "author": "Emily R."
+            },
+            {
+                "quote": "I upgraded my PC with TechFix and it runs like new. Highly recommend their services!",
+                "author": "James T."
+            },
+            {
+                "quote": "Great customer service and affordable prices. My go-to place for all computer issues.",
+                "author": "Anna K."
+            }
+        ],
+        "blogPreviews": [
+            {
+                "title": "How to Fix a Slow Computer",
+                "summary": "Learn the top tips and tricks to speed up your slow computer and improve its performance.",
+                "link": "/blog/how-to-fix-a-slow-computer",
+                "img": {
+                    "src": "https://example.com/slow-computer-thumbnail.jpg",
+                    "alt": "Fixing a slow computer"
+                }
+            },
+            {
+                "title": "Essential Computer Maintenance Tips",
+                "summary": "Keep your computer running smoothly with these essential maintenance tips.",
+                "link": "/blog/essential-computer-maintenance-tips",
+                "img": {
+                    "src": "https://example.com/computer-maintenance-thumbnail.jpg",
+                    "alt": "Essential computer maintenance tips"
+                }
+            },
+            {
+                "title": "Troubleshooting Common Computer Problems",
+                "summary": "A guide to troubleshooting and fixing common computer issues.",
+                "link": "/blog/troubleshooting-common-computer-problems",
+                "img": {
+                    "src": "https://example.com/troubleshooting-thumbnail.jpg",
+                    "alt": "Troubleshooting common computer problems"
+                }
+            }
+        ],
+        "contact": {
+            "title": "Get in Touch with Us",
+            "description": "Have any questions or need help? Contact us today!",
+            "phone": "+1 234 567 890",
+            "email": "support@techfix.com",
+            "address": "123 Tech Street, Oslo, Norway",
+            "formLink": "/contact"
+        }
+    }
+}

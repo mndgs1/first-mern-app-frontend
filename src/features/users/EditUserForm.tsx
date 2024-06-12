@@ -1,188 +1,243 @@
-//@ts-nocheck
-import { useState, useEffect } from "react";
-import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { ROLES } from "../../config/roles";
+import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger,
+    DialogHeader,
+    DialogFooter,
+    DialogTitle,
+} from "@/components/ui/dialog";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
 
-const USER_REGEX = /^[A-z]{3,20}$/;
-const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/;
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 
-const EditUserForm = ({ user }) => {
+import { Input } from "@/components/ui/input";
+import { User } from "@/types";
+import { EditIcon } from "lucide-react";
+import { SaveIcon } from "lucide-react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useUpdateUserMutation } from "./usersApiSlice";
+
+const formSchema = z.object({
+    username: z.string().min(2, {
+        message: "Username must be at least 2 characters.",
+    }),
+    firstName: z.string().min(2, {
+        message: "First name must be at least 2 characters.",
+    }),
+    lastName: z.string().min(2, {
+        message: "Last name must be at least 2 characters.",
+    }),
+    email: z
+        .string()
+        .min(1, { message: "This field has to be filled." })
+        .email("This is not a valid email."),
+    active: z.boolean(),
+    role: z.string(),
+});
+
+const EditUserForm = ({ user }: { user: User }) => {
     const [updateUser, { isLoading, isSuccess, isError, error }] =
         useUpdateUserMutation();
 
-    const [
-        deleteUser,
-        { isSuccess: isDelSuccess, isError: isDelError, error: delerror },
-    ] = useDeleteUserMutation();
-
-    const navigate = useNavigate();
-
-    const [username, setUsername] = useState(user.username);
-    const [validUsername, setValidUsername] = useState(false);
-    const [password, setPassword] = useState("");
-    const [validPassword, setValidPassword] = useState(false);
-    const [roles, setRoles] = useState(user.roles);
-    const [active, setActive] = useState(user.active);
-
-    useEffect(() => {
-        setValidUsername(USER_REGEX.test(username));
-    }, [username]);
-
-    useEffect(() => {
-        setValidPassword(PWD_REGEX.test(password));
-    }, [password]);
-
-    useEffect(() => {
-        console.log(isSuccess);
-        if (isSuccess || isDelSuccess) {
-            setUsername("");
-            setPassword("");
-            setRoles([]);
-            navigate("/dash/users");
-        }
-    }, [isSuccess, isDelSuccess, navigate]);
-
-    const onUsernameChanged = (e) => setUsername(e.target.value);
-    const onPasswordChanged = (e) => setPassword(e.target.value);
-
-    const onRolesChanged = (e) => {
-        const values = Array.from(
-            e.target.selectedOptions,
-            (option) => option.value
-        );
-        setRoles(values);
-    };
-
-    const onActiveChanged = () => setActive((prev) => !prev);
-
-    const onSaveUserClicked = async () => {
-        if (password) {
-            await updateUser({
-                id: user.id,
-                username,
-                password,
-                roles,
-                active,
-            });
-        } else {
-            await updateUser({ id: user.id, username, roles, active });
-        }
-    };
-
-    const onDeleteUserClicked = async () => {
-        await deleteUser({ id: user.id });
-    };
-
-    const options = Object.values(ROLES).map((role) => {
-        return (
-            <option key={role} value={role}>
-                {" "}
-                {role}
-            </option>
-        );
+    const { toast } = useToast();
+    const [open, setOpen] = useState(false);
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            role: user.roles[user.roles.length - 1],
+            active: user.active,
+        },
     });
-
-    let canSave;
-    if (password) {
-        canSave =
-            [roles.length, validUsername, validPassword].every(Boolean) &&
-            !isLoading;
-    } else {
-        canSave = [roles.length, validUsername].every(Boolean) && !isLoading;
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const { username, firstName, lastName, email, active, role } = values;
+        await updateUser({
+            id: user.id,
+            username,
+            firstName,
+            lastName,
+            email,
+            active,
+            roles: [role],
+        });
+        setOpen(false);
     }
 
-    const errClass = isError || isDelError ? "errmsg" : "offscreen";
-    const validUserClass = !validUsername ? "form__input--incomplete" : "";
-    const validPwdClass =
-        password && !validPassword ? "form__input--incomplete" : "";
-    const validRolesClass = !roles.length ? "form__input--incomplete" : "";
+    useEffect(() => {
+        if (isSuccess) {
+            toast({
+                title: `${user.firstName} ${user.lastName}`,
+                description: "Was changed succesfully!",
+            });
+        }
+        if (isError) {
+            toast({
+                title: `Oops there was a problem! ${error}`,
+                variant: "destructive",
+            });
+        }
+    }, [isSuccess, isError, error, user.firstName, user.lastName, toast]);
 
-    const errContent = (error?.data?.message || delerror?.data?.message) ?? "";
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <Button variant={"ghost"} size={"icon"}>
+                    <EditIcon className={"h-4 w-4"} />
+                </Button>
+            </DialogTrigger>
+            <DialogContent
+                onInteractOutside={(e) => {
+                    e.preventDefault();
+                }}>
+                <DialogHeader className="mb-6">
+                    <DialogTitle>
+                        Edit {`${user.firstName} ${user.lastName}`}
+                    </DialogTitle>
+                </DialogHeader>
+                <Form {...form}>
+                    <form
+                        aria-disabled={isLoading}
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-8 mb-6">
+                        <div className="flex gap-4">
+                            <FormField
+                                control={form.control}
+                                name="username"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Username</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="shadcn"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="role"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Role</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={
+                                                user.roles[
+                                                    user.roles.length - 1
+                                                ]
+                                            }>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select Role" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                <SelectItem value="Employee">
+                                                    Employee
+                                                </SelectItem>
+                                                <SelectItem value="Manager">
+                                                    Manager
+                                                </SelectItem>
+                                                <SelectItem value="Admin">
+                                                    Admin
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <div className="flex gap-3">
+                            <FormField
+                                control={form.control}
+                                name="firstName"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>First Name</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
-    const content = (
-        <>
-            <p className={errClass}>{errContent}</p>
+                            <FormField
+                                control={form.control}
+                                name="lastName"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Last Name</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-            <form className="form" onSubmit={(e) => e.preventDefault()}>
-                <div className="form__title-row">
-                    <h2>Edit User</h2>
-                    <div className="form__action-buttons">
-                        <button
-                            className="icon-button"
-                            title="Save"
-                            onClick={onSaveUserClicked}
-                            disabled={!canSave}>
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
-                        <button
-                            className="icon-button"
-                            title="Delete"
-                            onClick={onDeleteUserClicked}>
-                            <FontAwesomeIcon icon={faTrashCan} />
-                        </button>
-                    </div>
-                </div>
-                <label className="form__label" htmlFor="username">
-                    Username: <span className="nowrap">[3-20 letters]</span>
-                </label>
-                <input
-                    className={`form__input ${validUserClass}`}
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="off"
-                    value={username}
-                    onChange={onUsernameChanged}
-                />
-
-                <label className="form__label" htmlFor="password">
-                    Password:{" "}
-                    <span className="nowrap">[empty = no change]</span>{" "}
-                    <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-                </label>
-                <input
-                    className={`form__input ${validPwdClass}`}
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={onPasswordChanged}
-                />
-
-                <label
-                    className="form__label form__checkbox-container"
-                    htmlFor="user-active">
-                    ACTIVE:
-                    <input
-                        className="form__checkbox"
-                        id="user-active"
-                        name="user-active"
-                        type="checkbox"
-                        checked={active}
-                        onChange={onActiveChanged}
-                    />
-                </label>
-
-                <label className="form__label" htmlFor="roles">
-                    ASSIGNED ROLES:
-                </label>
-                <select
-                    id="roles"
-                    name="roles"
-                    className={`form__select ${validRolesClass}`}
-                    multiple={true}
-                    size="3"
-                    value={roles}
-                    onChange={onRolesChanged}>
-                    {options}
-                </select>
-            </form>
-        </>
+                        <DialogFooter className="flex flex-col gap-2 justify-between">
+                            {/* <Button variant={"destructive"}>
+                                Deactive User
+                            </Button> */}
+                            <Button
+                                variant={"outline"}
+                                onClick={() => setOpen(!open)}
+                                type="button">
+                                Cancel
+                            </Button>
+                            <Button
+                                variant={"primary"}
+                                className="gap-1"
+                                type="submit">
+                                Save Changes
+                                <SaveIcon className="h-4 w-4" />
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </Form>
+            </DialogContent>
+        </Dialog>
     );
-
-    return content;
 };
+
 export default EditUserForm;
