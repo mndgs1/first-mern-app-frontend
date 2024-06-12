@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import Pc from "@/assets/img/pc.svg?url";
 import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
-import { socialMediaLinks } from "../Footer";
 import SocialMedia from "../../ui/SocialMedia";
+import { socialMediaLinks } from "@/data/socialLinks";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
-// Text content object
 const content = {
     heroHeading: "Your Trusted Partner in Computer Repair",
     heroSubheading:
@@ -35,21 +35,29 @@ const Hero = () => {
                             {content.heroSubheading}
                         </H1>
                         <div className="flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
-                            <a href="#contact">
+                            <ScrollLink
+                                to={"contact"}
+                                spy={true}
+                                smooth={true}
+                                duration={500}>
                                 <Button
                                     size={"lg"}
                                     className="w-full md:w-auto">
                                     {content.contactButtonText}
                                 </Button>
-                            </a>
-                            <a href="#services">
+                            </ScrollLink>
+                            <ScrollLink
+                                to={"services"}
+                                spy={true}
+                                smooth={true}
+                                duration={500}>
                                 <Button
                                     variant={"secondary"}
                                     size={"lg"}
                                     className="w-full md:w-auto">
                                     {content.servicesButtonText}
                                 </Button>
-                            </a>
+                            </ScrollLink>
                         </div>
                     </div>
 

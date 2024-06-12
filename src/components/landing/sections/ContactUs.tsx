@@ -37,9 +37,9 @@ const contactMethods = [
         contactInfo: "+1 (555) 000-0000",
     },
 ];
-const ContactUs = ({ id }: { id: string }) => {
+const ContactUs = () => {
     return (
-        <SectionWrapper id={id}>
+        <SectionWrapper id="contact">
             <SectionContentWrapper className="flex flex-col lg:flex-row gap-14">
                 <div>
                     <H2>Chat to our friendly team</H2>

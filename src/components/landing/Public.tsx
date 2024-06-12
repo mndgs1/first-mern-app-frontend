@@ -14,10 +14,9 @@ const Public = () => {
             <main className="flex flex-col flex-grow">
                 <Hero />
                 <Services />
-
-                <AboutUs id="about" />
+                <AboutUs />
                 <Testimonials />
-                <ContactUs id="contact" />
+                <ContactUs />
             </main>
             <Footer />
         </>

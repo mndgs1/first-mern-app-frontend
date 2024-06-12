@@ -1,52 +1,29 @@
 import SectionWrapper from "./sections/SectionWrapper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faFacebook,
-    faInstagram,
-    faYoutube,
-    faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
 import SocialMedia from "../ui/SocialMedia";
-
-const footerLinks = [
-    { text: "About Us", href: "#" },
-    { text: "Services", href: "#" },
-    { text: "Testimonials", href: "#" },
-    { text: "Contact", href: "#" },
-];
-
-export const socialMediaLinks = [
-    {
-        icon: <FontAwesomeIcon icon={faFacebook} size="xl" />,
-        href: "#",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faInstagram} size="xl" />,
-        href: "#",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faYoutube} size="xl" />,
-        href: "#",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faTwitter} size="xl" />,
-        href: "#",
-    },
-];
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import { Button } from "../ui/button";
+import { navLinks } from "@/data/navLinks";
+import { socialMediaLinks } from "@/data/socialLinks";
+import { ArrowUp } from "lucide-react";
 
 const Footer = () => {
     return (
         <footer>
-            <SectionWrapper>
+            <SectionWrapper className="relative">
                 <div className="flex flex-col items-center border-t pt-6">
                     <nav className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2 md:justify-start md:gap-6">
-                        {footerLinks.map((link, index) => (
-                            <a
+                        {navLinks.map((link, index) => (
+                            <ScrollLink
                                 key={index}
-                                href={link.href}
-                                className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600">
-                                {link.text}
-                            </a>
+                                to={link.href}
+                                spy={true}
+                                smooth={true}
+                                offset={-50}
+                                duration={500}
+                                // onSetActive={handleSetActive}
+                                className="text-gray-500 transition duration-100 hover:text-indigo-500 active:text-indigo-600 cursor-pointer">
+                                {link.label}
+                            </ScrollLink>
                         ))}
                     </nav>
                     <div className="flex gap-4">
@@ -59,10 +36,16 @@ const Footer = () => {
                         ))}
                     </div>
                 </div>
-
                 <div className="py-8 text-center text-sm text-gray-400">
                     © 2024 - TechFix. All rights reserved.
-                </div>
+                </div>{" "}
+                <Button
+                    variant={"outline"}
+                    size={"icon"}
+                    className="group hover:border-primary hover:bg-transparent absolute right-10 bottom-6 md:bottom-1/2 md:-translate-y-1/2"
+                    onClick={() => scroll.scrollToTop()}>
+                    <ArrowUp className="text-muted group-hover:text-primary transition-colors" />
+                </Button>
             </SectionWrapper>
         </footer>
     );

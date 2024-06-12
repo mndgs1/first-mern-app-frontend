@@ -4,6 +4,7 @@ import ThemeSwitch from "../ThemeSwitch";
 import { Button } from "../ui/button";
 import { X, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 interface NavLinks {
     label: string;
@@ -22,21 +23,29 @@ const Header = ({ navLinks }: HeaderProps) => {
 
     return (
         <header className="absolute w-full mt-6">
-            <SectionContentWrapper className="">
+            <SectionContentWrapper>
                 <div className="bg-background border rounded-[30px] px-8">
                     <div className="flex items-center justify-between min-h-16">
-                        <Link to="/" className="text">
+                        <div
+                            className="cursor-pointer"
+                            onClick={() => scroll.scrollToTop()}>
                             Tech<span className="text-foreground">Fix</span>
-                        </Link>
+                        </div>
                         <nav className="hidden lg:block">
                             <ul className="flex flex-row gap-2">
                                 {navLinks.map((link, index) => (
                                     <li key={`${link.label}${index}`}>
-                                        <a href={link.href}>
+                                        <ScrollLink
+                                            key={index}
+                                            to={link.href}
+                                            spy={true}
+                                            smooth={true}
+                                            offset={76}
+                                            duration={500}>
                                             <Button variant={"ghost"}>
                                                 {link.label}
                                             </Button>
-                                        </a>
+                                        </ScrollLink>
                                     </li>
                                 ))}
                             </ul>
@@ -70,15 +79,20 @@ const Header = ({ navLinks }: HeaderProps) => {
                                 </li>
                                 {navLinks.map((link, index) => (
                                     <li key={`${link.label}${index}`}>
-                                        <a
-                                            href={link.href}
+                                        <ScrollLink
+                                            key={index}
+                                            to={link.href}
+                                            spy={true}
+                                            smooth={true}
+                                            offset={0}
+                                            duration={500}
                                             onClick={() =>
                                                 setMenuOpen(!menuOpen)
                                             }>
                                             <Button variant={"ghost"}>
                                                 {link.label}
                                             </Button>
-                                        </a>
+                                        </ScrollLink>
                                     </li>
                                 ))}
                             </ul>

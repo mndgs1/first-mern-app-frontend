@@ -5,7 +5,7 @@ const sectionVariants = cva("w-full", {
     variants: {
         variant: {
             primary: "pt-12 md:pt-24 lg:pt-32",
-            background: "mt-12 md:mt-24 lg:mt-32 py-12 md:py-24 lg:py-32",
+            background: "py-12 md:py-24 lg:py-32",
         },
     },
     defaultVariants: {

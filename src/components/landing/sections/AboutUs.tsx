@@ -1,12 +1,11 @@
 import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
-import { SectionProps } from "@/types";
 import { P } from "../../typography/Paragraph";
 import { H2, H3 } from "../../typography/Heading";
 
-const AboutUs = ({ id }: SectionProps) => {
+const AboutUs = () => {
     return (
-        <SectionWrapper id={id}>
+        <SectionWrapper id={"about"}>
             <SectionContentWrapper>
                 <H2 className="text-center">
                     TechFix: Your Trusted Source for Computer Repair Solutions

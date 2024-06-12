@@ -60,7 +60,7 @@ const Testimonials = () => {
         },
     ];
     return (
-        <SectionWrapper>
+        <SectionWrapper id="testimonials">
             <SectionContentWrapper>
                 <H2 className="text-center">
                     Read trusted reviews from our customers
