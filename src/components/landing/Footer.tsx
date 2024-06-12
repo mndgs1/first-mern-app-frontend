@@ -42,7 +42,7 @@ const Footer = () => {
                 <Button
                     variant={"outline"}
                     size={"icon"}
-                    className="group hover:border-primary hover:bg-transparent absolute right-10 bottom-6 md:bottom-1/2 md:-translate-y-1/2"
+                    className="group hover:border-primary hover:bg-transparent absolute right-10 bottom-6 md:bottom-1/5"
                     onClick={() => scroll.scrollToTop()}>
                     <ArrowUp className="text-muted group-hover:text-primary transition-colors" />
                 </Button>
