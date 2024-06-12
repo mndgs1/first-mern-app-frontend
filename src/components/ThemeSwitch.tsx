@@ -1,30 +1,29 @@
 import { useTheme } from "./ThemeProvider";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
-import { useState } from "react";
-
-type Theme = "light" | "dark" | "system";
+import { useEffect, useState } from "react";
 
 type ThemeSwitchProps = {
     className?: string;
 };
 
 const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
-    const getSystemTheme = () => {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches)
-            return "dark";
-        return "light";
-    };
-
-    const [currentTheme, setCurrentTheme] = useState<Theme>(getSystemTheme);
-
     const { setTheme } = useTheme();
+    const [darkTheme, setDarkTheme] = useState<boolean>(false);
+
+    useEffect(() => {
+        const html = document.querySelector("html");
+        if (html?.classList.contains("dark")) {
+            setDarkTheme(true);
+        } else {
+            setDarkTheme(false);
+        }
+    }, []);
 
     const handleThemeChange = () => {
-        if (currentTheme === "dark") setCurrentTheme("light");
-        else setCurrentTheme("dark");
-
-        setTheme(currentTheme);
+        const newTheme = darkTheme ? "light" : "dark";
+        setTheme(newTheme);
+        setDarkTheme(!darkTheme);
     };
 
     return (
@@ -33,10 +32,10 @@ const ThemeSwitch = ({ className }: ThemeSwitchProps) => {
             size={"icon"}
             onClick={handleThemeChange}
             className={className}>
-            {currentTheme === "dark" ? (
-                <Moon className="h-5 w-5" />
-            ) : (
+            {darkTheme ? (
                 <Sun className="h-5 w-5" />
+            ) : (
+                <Moon className="h-5 w-5" />
             )}
         </Button>
     );

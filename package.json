@@ -12,8 +12,6 @@
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.5.2",
         "@fortawesome/free-brands-svg-icons": "^6.5.2",
-        "@fortawesome/free-regular-svg-icons": "^6.5.2",
-        "@fortawesome/free-solid-svg-icons": "^6.5.2",
         "@fortawesome/react-fontawesome": "^0.2.2",
         "@fvilers/disable-react-devtools": "^1.3.0",
         "@hookform/resolvers": "^3.4.2",
@@ -27,7 +25,6 @@
         "@radix-ui/react-select": "^2.0.0",
         "@radix-ui/react-slot": "^1.0.2",
         "@radix-ui/react-toast": "^1.1.5",
-        "@react-icons/all-files": "^4.1.0",
         "@reduxjs/toolkit": "^2.2.3",
         "@types/react-redux": "^7.1.33",
         "@types/react-scroll": "^1.8.10",
@@ -64,6 +61,7 @@
         "postcss": "^8.4.38",
         "tailwindcss": "^3.4.3",
         "typescript": "^5.2.2",
-        "vite": "^5.2.0"
+        "vite": "^5.2.0",
+        "vite-svg-loader": "^5.1.0"
     }
 }

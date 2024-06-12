@@ -25,8 +25,7 @@ import {
     CardHeader,
     CardFooter,
 } from "@/components/ui/card";
-import SectionContentWrapper from "@/components/sections/SectionContentWrapper";
-import SectionWrapper from "@/components/sections/SectionWrapper";
+import SectionContentWrapper from "@/components/landing/sections/SectionContentWrapper";
 
 import usePersist from "../../hooks/usePersist";
 import useTitle from "../../hooks/useTitle";
@@ -76,9 +75,9 @@ const LoginForm = () => {
     }
 
     return (
-        <SectionWrapper>
+        <div className="h-screen w-full flex justify-center items-center">
             <SectionContentWrapper className="max-w-2xl">
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden ">
                     <CardHeader>
                         <H2>Login</H2>
                         <P variant={"muted"}>lorem ibsum ibsum ibsum</P>
@@ -96,7 +95,7 @@ const LoginForm = () => {
                                             <FormLabel>Username</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Doe"
+                                                    placeholder="username"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -112,7 +111,7 @@ const LoginForm = () => {
                                             <FormLabel>Password</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder=""
+                                                    placeholder="password"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -143,6 +142,11 @@ const LoginForm = () => {
                                     )}
                                 />
                                 <div className="flex justify-between">
+                                    <Link to="/">
+                                        <Button variant={"outline"}>
+                                            Back to Home
+                                        </Button>
+                                    </Link>
                                     <Button
                                         type="submit"
                                         className="flex gap-2">
@@ -155,11 +159,6 @@ const LoginForm = () => {
                                             <>Login</>
                                         )}
                                     </Button>
-                                    <Link to="/">
-                                        <Button variant={"outline"}>
-                                            Back to Home
-                                        </Button>
-                                    </Link>
                                 </div>
                             </form>
                         </Form>
@@ -173,7 +172,7 @@ const LoginForm = () => {
                     </CardFooter>
                 </Card>
             </SectionContentWrapper>
-        </SectionWrapper>
+        </div>
     );
 };
 

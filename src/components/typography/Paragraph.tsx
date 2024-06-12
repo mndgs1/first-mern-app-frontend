@@ -14,7 +14,7 @@ const pVariants = cva("leading-7", {
         size: {
             sm: "text-sm",
             md: "",
-            lg: "text-lg font-medium",
+            lg: "text-lg",
             xl: "text-lg lg:text-xl font-semibold",
         },
         margin: {
