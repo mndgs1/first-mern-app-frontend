@@ -6,7 +6,7 @@ import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
 import SocialMedia from "../../ui/SocialMedia";
 import { socialMediaLinks } from "@/data/socialLinks";
-import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 
 const content = {
     heroHeading: "Your Trusted Partner in Computer Repair",
