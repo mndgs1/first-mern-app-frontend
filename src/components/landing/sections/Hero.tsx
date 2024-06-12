@@ -1,7 +1,6 @@
 import { H1 } from "@/components/typography/Heading";
 import { P } from "@/components/typography/Paragraph";
 import { Button } from "@/components/ui/button";
-import Pc from "/assets/img/pc.svg?url";
 import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
 import SocialMedia from "../../ui/SocialMedia";
@@ -62,7 +61,10 @@ const Hero = () => {
                     </div>
 
                     <div className="h-78 overflow-hidden rounded-lg min-w-[20rem] lg:h-96 xl:w-6/12">
-                        <img src={Pc} className="w-full h-full max-h-96" />
+                        <img
+                            src={"/assets/img/pc.svg"}
+                            className="w-full h-full max-h-96"
+                        />
                     </div>
                 </div>
 
