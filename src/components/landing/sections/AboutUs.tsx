@@ -1,7 +1,7 @@
-import SectionContentWrapper from "./SectionContentWrapper";
-import SectionWrapper from "./SectionWrapper";
-import { P } from "../../typography/Paragraph";
-import { H2, H3 } from "../../typography/Heading";
+import SectionContentWrapper from "@/components/landing/sections/SectionContentWrapper";
+import SectionWrapper from "@/components/landing/sections/SectionWrapper";
+import { P } from "@/components/typography/Paragraph";
+import { H2, H3 } from "@/components/typography/Heading";
 
 const AboutUs = () => {
     return (
@@ -15,14 +15,14 @@ const AboutUs = () => {
                         <img
                             alt="content"
                             className="object-cover object-center h-full w-full"
-                            src="/src/assets/img/background.jpg"
+                            src={"/assets/img/background.jpg"}
                         />
                     </div>
                     <div className="flex flex-col sm:flex-row mt-10">
                         <div className="sm:w-1/3 text-center sm:pr-8 sm:py-8">
                             <div className="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400  overflow-hidden">
                                 <img
-                                    src="/src/assets/img/portrait-white-man-isolated.jpg"
+                                    src="/assets/img/portrait-white-man-isolated.jpg"
                                     className="w-full h-full object-cover"
                                 />
                             </div>

@@ -1,7 +1,7 @@
 import { H1 } from "@/components/typography/Heading";
 import { P } from "@/components/typography/Paragraph";
 import { Button } from "@/components/ui/button";
-import Pc from "@/assets/img/pc.svg?url";
+import Pc from "/assets/img/pc.svg?url";
 import SectionContentWrapper from "./SectionContentWrapper";
 import SectionWrapper from "./SectionWrapper";
 import SocialMedia from "../../ui/SocialMedia";

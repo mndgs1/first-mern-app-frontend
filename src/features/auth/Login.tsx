@@ -143,7 +143,9 @@ const LoginForm = () => {
                                 />
                                 <div className="flex justify-between">
                                     <Link to="/">
-                                        <Button variant={"outline"}>
+                                        <Button
+                                            variant={"outline"}
+                                            type="button">
                                             Back to Home
                                         </Button>
                                     </Link>
