@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import Public from "./components/Public";
 import LoginForm from "./features/auth/Login";
 import NotesList from "./features/notes/NotesList";
 import UsersList from "./features/users/UsersList";
@@ -11,7 +10,8 @@ import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 import { ROLES } from "./config/roles";
 import useTitle from "./hooks/useTitle";
-import DashLayout from "./components/DashLayout";
+import DashLayout from "./components/dash/DashLayout";
+import Public from "./components/landing/Public";
 
 function App() {
     useTitle("Dan D. Repairs");

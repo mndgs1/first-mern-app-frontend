@@ -1,9 +1,5 @@
 export const navLinks = [
     {
-        label: "Home",
-        href: "#home",
-    },
-    {
         label: "About Us",
         href: "#about",
     },
@@ -14,10 +10,6 @@ export const navLinks = [
     {
         label: "Testimonials",
         href: "#testimonials",
-    },
-    {
-        label: "FAQ",
-        href: "#faq",
     },
     {
         label: "Contact",

@@ -25,8 +25,8 @@ import {
     CardHeader,
     CardFooter,
 } from "@/components/ui/card";
-import SectionContentWrapper from "@/components/sections/SectionContentWrapper";
-import SectionWrapper from "@/components/sections/SectionWrapper";
+import SectionContentWrapper from "@/components/landing/sections/SectionContentWrapper";
+import SectionWrapper from "@/components/landing/sections/SectionWrapper";
 
 import usePersist from "../../hooks/usePersist";
 import useTitle from "../../hooks/useTitle";
