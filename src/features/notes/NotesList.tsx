@@ -82,7 +82,8 @@ const NotesList = () => {
                 setSortColumn({ key, order: "asc" });
             }
         };
-        const sortedNotes: Note[] = sortObjects(entities, sortColumn);
+
+        const sortedNotes = sortObjects(entities, sortColumn);
 
         const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
             setSearch(e.target.value);

@@ -9,8 +9,10 @@ import {
     UsersIcon,
     FileTextIcon,
 } from "lucide-react";
+import useAuth from "@/hooks/useAuth";
 
 const DashSidebar = () => {
+    const { isManager, isAdmin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [isExpanded, setIsExpanded] = useState(true);
@@ -64,20 +66,24 @@ const DashSidebar = () => {
                         Notes
                     </span>
                 </Button>
-                <Button
-                    variant={
-                        location.pathname.includes("users")
-                            ? "primary"
-                            : "outline"
-                    }
-                    onClick={onUsersClicked}
-                    size={isExpanded ? "default" : "icon"}
-                    className={isExpanded ? "justify-start w-full gap-2" : ""}>
-                    <UsersIcon className="h-5 w-5" />
-                    <span className={isExpanded ? "block" : "hidden"}>
-                        Users
-                    </span>
-                </Button>
+                {(isAdmin || isManager) && (
+                    <Button
+                        variant={
+                            location.pathname.includes("users")
+                                ? "primary"
+                                : "outline"
+                        }
+                        onClick={onUsersClicked}
+                        size={isExpanded ? "default" : "icon"}
+                        className={
+                            isExpanded ? "justify-start w-full gap-2" : ""
+                        }>
+                        <UsersIcon className="h-5 w-5" />
+                        <span className={isExpanded ? "block" : "hidden"}>
+                            Users
+                        </span>
+                    </Button>
+                )}
             </nav>
         </div>
     );

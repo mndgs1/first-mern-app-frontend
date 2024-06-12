@@ -40,7 +40,7 @@ const FormSchema = z.object({
     password: z.string().min(2, {
         message: "Password must be at least 2 characters.",
     }),
-    persist: z.boolean().default(false).optional(),
+    persist: z.boolean().default(false),
 });
 
 const LoginForm = () => {
@@ -61,7 +61,8 @@ const LoginForm = () => {
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         try {
-            const { username, password } = data;
+            const { username, password, persist } = data;
+            setPersist(persist);
             const { accessToken } = await login({
                 username,
                 password,
@@ -130,11 +131,6 @@ const LoginForm = () => {
                                                     checked={field.value}
                                                     onCheckedChange={
                                                         field.onChange
-                                                    }
-                                                    onClick={() =>
-                                                        setPersist(
-                                                            (prev) => !prev
-                                                        )
                                                     }
                                                 />
                                             </FormControl>
