@@ -17,12 +17,13 @@ type HeaderProps = {
 
 const Header = ({ navLinks }: HeaderProps) => {
     const [menuOpen, setMenuOpen] = React.useState(false);
+    const [currentSection, setCurrentSection] = React.useState("");
     const handleMenuOpen = () => {
         setMenuOpen(!menuOpen);
     };
 
     return (
-        <header className="absolute w-full mt-6">
+        <header className="w-full mt-6 fixed">
             <SectionContentWrapper>
                 <div className="bg-background border rounded-[30px] px-8">
                     <div className="flex items-center justify-between min-h-16">
@@ -40,9 +41,18 @@ const Header = ({ navLinks }: HeaderProps) => {
                                             to={link.href}
                                             spy={true}
                                             smooth={true}
-                                            offset={76}
+                                            offset={0}
+                                            onSetActive={() =>
+                                                setCurrentSection(link.href)
+                                            }
                                             duration={500}>
-                                            <Button variant={"ghost"}>
+                                            <Button
+                                                variant={"ghost"}
+                                                className={
+                                                    currentSection === link.href
+                                                        ? "underline"
+                                                        : ""
+                                                }>
                                                 {link.label}
                                             </Button>
                                         </ScrollLink>
