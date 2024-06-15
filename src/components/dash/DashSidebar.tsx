@@ -23,7 +23,7 @@ const DashSidebar = () => {
     return (
         <div
             className={`flex flex-col border-r bg-background border-border ${
-                isExpanded ? "w-56" : "w-16"
+                isExpanded ? "w-48 lg:w-56" : "w-16"
             }`}>
             <div className="flex h-16 items-center justify-between px-4 border-b ">
                 <div className="flex items-center justify-between gap-2 font-semibold text-lg">

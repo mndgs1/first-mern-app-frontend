@@ -88,8 +88,8 @@ const UsersListNew = () => {
             <div className="p-6 space-y-6">
                 <div className="flex flex-col md:flex-row md:items-center gap-6 justify-between">
                     <h1 className="text-2xl font-bold">Users</h1>
-                    <div className="flex items-center gap-4">
-                        <div className="relative">
+                    <div className="flex items-center gap-4 flex-wrap">
+                        <div className="relative w-full md:w-fit max-w-[14rem]">
                             <Input
                                 placeholder="Search users..."
                                 className="px-4"
