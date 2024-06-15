@@ -34,6 +34,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useUpdateUserMutation } from "./usersApiSlice";
+import useAuth from "@/hooks/useAuth";
+import EditActiveUserModal from "./EditActiveUserModal";
 
 const formSchema = z.object({
     username: z.string().min(2, {
@@ -54,6 +56,7 @@ const formSchema = z.object({
 });
 
 const EditUserForm = ({ user }: { user: User }) => {
+    const { isAdmin, isManager } = useAuth();
     const [updateUser, { isLoading, isSuccess, isError, error }] =
         useUpdateUserMutation();
 
@@ -216,9 +219,13 @@ const EditUserForm = ({ user }: { user: User }) => {
                         />
 
                         <DialogFooter className="flex flex-col gap-2 justify-between">
-                            {/* <Button variant={"destructive"}>
-                                Deactive User
-                            </Button> */}
+                            <EditActiveUserModal
+                                user={user}
+                                isManager={isManager}
+                                isAdmin={isAdmin}
+                                editUserModalOpen={open}
+                                editUserModalSetOpen={setOpen}
+                            />
                             <Button
                                 variant={"outline"}
                                 onClick={() => setOpen(!open)}
