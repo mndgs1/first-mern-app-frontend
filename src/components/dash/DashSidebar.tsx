@@ -15,7 +15,7 @@ const DashSidebar = () => {
     const { isManager, isAdmin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(window.innerWidth > 1000);
 
     const onNotesClicked = () => navigate("/dash/notes");
     const onUsersClicked = () => navigate("/dash/users");
