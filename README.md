@@ -1,6 +1,6 @@
 # Holidaze
 
-![image](./public/assets/wepage.png)
+![image](./public/assets/webpage.png)
 
 ## Description
 
