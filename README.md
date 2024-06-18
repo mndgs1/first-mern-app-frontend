@@ -1,4 +1,4 @@
-# Holidaze
+# TechFix
 
 ![image](./public/assets/webpage.png)
 
