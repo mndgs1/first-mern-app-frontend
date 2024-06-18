@@ -11,17 +11,17 @@ import type { User } from "@/types";
 import { H3 } from "@/components/typography/Heading";
 import { P } from "@/components/typography/Paragraph";
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useUpdateUserMutation } from "./usersApiSlice";
-import { useToast } from "@/components/ui/use-toast";
+// import { z } from "zod";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { useForm } from "react-hook-form";
+// import { useUpdateUserMutation } from "./usersApiSlice";
+// import { useToast } from "@/components/ui/use-toast";
 
-const formSchema = z.object({
-    active: z.boolean(),
-});
+// const formSchema = z.object({
+//     active: z.boolean(),
+// });
 
-import { Form } from "@/components/ui/form";
+// import { Form } from "@/components/ui/form";
 
 const EditActiveUserModal = ({
     user,
@@ -38,43 +38,43 @@ const EditActiveUserModal = ({
 }) => {
     const [open, setOpen] = React.useState(false);
 
-    const [updateUser, { isLoading, isSuccess, isError, error }] =
-        useUpdateUserMutation();
+    // const [updateUser, { isLoading, isSuccess, isError, error }] =
+    //     useUpdateUserMutation();
 
-    const { toast } = useToast();
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            active: user.active,
-        },
-    });
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-        const { active } = values;
-        await updateUser({
-            id: user.id,
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            active,
-        });
-        setOpen(false);
-    }
+    // const { toast } = useToast();
+    // const form = useForm<z.infer<typeof formSchema>>({
+    //     resolver: zodResolver(formSchema),
+    //     defaultValues: {
+    //         active: user.active,
+    //     },
+    // });
+    // async function onSubmit(values: z.infer<typeof formSchema>) {
+    //     const { active } = values;
+    //     await updateUser({
+    //         id: user.id,
+    //         username: user.username,
+    //         firstName: user.firstName,
+    //         lastName: user.lastName,
+    //         email: user.email,
+    //         active,
+    //     });
+    //     setOpen(false);
+    // }
 
-    React.useEffect(() => {
-        if (isSuccess) {
-            toast({
-                title: `${user.firstName} ${user.lastName}`,
-                description: "Was changed succesfully!",
-            });
-        }
-        if (isError) {
-            toast({
-                title: `Oops there was a problem! ${error}`,
-                variant: "destructive",
-            });
-        }
-    }, [isSuccess, isError, error, user.firstName, user.lastName, toast]);
+    // React.useEffect(() => {
+    //     if (isSuccess) {
+    //         toast({
+    //             title: `${user.firstName} ${user.lastName}`,
+    //             description: "Was changed succesfully!",
+    //         });
+    //     }
+    //     if (isError) {
+    //         toast({
+    //             title: `Oops there was a problem! ${error}`,
+    //             variant: "destructive",
+    //         });
+    //     }
+    // }, [isSuccess, isError, error, user.firstName, user.lastName, toast]);
 
     const handleActiveChange = () => {
         editUserModalSetOpen(!editUserModalOpen);
