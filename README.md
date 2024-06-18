@@ -1,30 +1,57 @@
-# React + TypeScript + Vite
+# Holidaze
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](./public/assets/wepage.png)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Holidaze is a fictional project created for my final exam in
+Noroff Front-end development course. The project is using
+Noroff API.
 
-## Expanding the ESLint configuration
+[Live site](https://techfix-mindaugas.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[API Repo](https://github.com/mndgs1/first-mern-app)
 
-- Configure the top-level `parserOptions` property like this:
+[Repo](https://github.com/mndgs1/first-mern-app-frontend)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Built With
+
+-   React
+-   Vite
+-   Tailwind
+-   Shadcn
+-   MongoDB
+-   Node.js
+-   Express
+-   React router
+-   Redux RTK
+
+## Running locally
+
+1. Clone the both front-end & backend repos
+
+```bash
+git clone https://github.com/mndgs1/first-mern-app
+git clone https://github.com/mndgs1/first-mern-app-frontend
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Install dependencies on both repos
+
+```bash
+npm install
+```
+
+4. Setting up db
+
+4.1. Create MongoDB clutter set ur DATABASE_URI to the connection string.
+4.2. Create access & refresh tokkens with cmd > node > require("crypto").randomBytes(64).toString("hex") to ACCESS_TOKEN_SECRET & REFRESH_TOKEN_SECRET
+
+5. Run both projects
+
+```bash
+npm run dev
+```
+
+## Contact
+
+[My LinkedIn page](https://www.linkedin.com/in/mindaugas-bankauskas-37445a144/)
