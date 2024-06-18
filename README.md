@@ -4,9 +4,7 @@
 
 ## Description
 
-Holidaze is a fictional project created for my final exam in
-Noroff Front-end development course. The project is using
-Noroff API.
+TechFix is a fictional project with homepage, login with access & refresh JWT tokens, role based accesability of features, redux rtk caching, optimistic UI updates, data on MongoDB.
 
 [Live site](https://techfix-mindaugas.vercel.app/)
 
