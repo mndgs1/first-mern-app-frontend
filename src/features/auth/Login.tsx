@@ -24,6 +24,7 @@ import {
     CardContent,
     CardHeader,
     CardFooter,
+    CardTitle,
 } from "@/components/ui/card";
 import SectionContentWrapper from "@/components/landing/sections/SectionContentWrapper";
 
@@ -171,6 +172,11 @@ const LoginForm = () => {
                                 Oops Something went wrong!
                             </P>
                         )}
+                        <Card>
+                            <CardTitle>For testing purposes</CardTitle>
+                            <span> Login: test</span>
+                            <span> Password: test</span>
+                        </Card>
                     </CardFooter>
                 </Card>
             </SectionContentWrapper>
